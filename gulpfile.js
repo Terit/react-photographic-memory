@@ -33,6 +33,10 @@ gulp.task('styles',function() {
     .pipe(autoprefixer())
     .pipe(gulp.dest('./build/css/'))
     .pipe(reload({stream:true}))
+  // Test
+  gulp.src('css/foundation.css')
+    .pipe(gulp.dest('./build/css'))
+    .pipe(reload({stream:true}))
 });
 
 /*

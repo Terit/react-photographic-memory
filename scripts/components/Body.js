@@ -1,18 +1,20 @@
 import React from 'react';
-var MDL = require('mdl-reactjs');
-var Card = MDL.Card;
-var CardTitle = MDL.CardTitle;
-var CardSupportingText = MDL.CardSupportingText;
-var CardActions = MDL.CardActions;
-var Button = MDL.Button;
+import Card from './Card';
 
 var Body = React.createClass({
+  renderCards : function(key) {
+    const card = this.props.cards[key];
+    return(
+      <Card key={key} image={card.image} match={card.match} />
+
+    )
+  },
+
   render : function() {
     return(
-      <main className="mdl-layout__content">
-        <div className="page-content">
-          {/* Your content goes here */}
-
+      <main>
+        <div className='row'>
+          {Object.keys(this.props.cards).map(this.renderCards)}
         </div>
       </main>
     );

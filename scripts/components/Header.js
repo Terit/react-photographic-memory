@@ -3,21 +3,19 @@ import React from 'react';
 var Header = React.createClass({
   render : function() {
     return(
-      <header className="mdl-layout__header">
-        <div className="mdl-layout__header-row">
-          {/*Title*/}
-          <span className="mdl-layout-title">Photographic Memory</span>
-          <div className="mdl-layout-spacer"></div>
-          <div className="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right">
-            <label className="mdl-button mdl-js-button mdl-button--icon" htmlFor="fixed-header-drawer-exp">
-              <i className="material-icons">search</i>
-            </label>
-            <div className="mdl-textfield__expandable-holder">
-              <input className="mdl-textfield__input" type="text" name="sample" id="fixed-header-drawer-exp" />
-            </div>
-          </div>
+      <div className="top-bar">
+        <div className="top-bar-left">
+          <ul className="menu">
+            <li className="menu-text">Photographic Memory</li>
+          </ul>
         </div>
-      </header>
+        <div className="top-bar-right">
+          <ul className="menu">
+            <li><input type="search" placeholder="Search" /></li>
+            <li><button type="button" className="button">Search</button></li>
+          </ul>
+        </div>
+      </div>   
     );
   }
 });
