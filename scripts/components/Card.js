@@ -8,6 +8,14 @@ var Card = React.createClass({
     };
 
   },
+
+  componentWillReceiveProps : function() {
+    this.setState({
+      isClicked : false,
+      isMatched : false
+    })
+  },
+
   isMatch : function() {
     if(this.state.isMatched) {
       return true;

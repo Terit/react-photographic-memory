@@ -7,19 +7,27 @@ import Instafeed from 'instafeed.js';
 
 var App = React.createClass({
   getInitialState : function() {
-    var tag = (this.props.params.tag ?'tagged' : 'popular')
-    var feed = new Instafeed({
-      get: tag,
-      tagName: this.props.params.tag,
+    var type = (this.props.params.tag ? 'tagged' : 'popular');
+    this.setFeed(type, this.props.params.tag);
+    return { 
+      cards: {}
+    };
+  },
+
+  componentWillReceiveProps : function(nextProps) {
+    var type = (nextProps.params.tag ? 'tagged' : 'popular');
+    this.setFeed(type, nextProps.params.tag);
+  },
+
+  setFeed : function(type, tag) {
+    new Instafeed({
+      get: type,
+      tagName: tag,
       clientId: "9da886f5f068407d9239abb2ae46cda2",
       mock: true,
       resolution: 'low_resolution',
       success: this.updateCards
     }).run();
-
-    return { 
-      cards: {}
-    };
   },
 
   updateCards : function(imgs) {
@@ -40,7 +48,7 @@ var App = React.createClass({
   render : function() {
     return (
       <div className='row'>
-        <Header />
+        <Header tag={this.props.params.tag} />
         <Body cards={this.state.cards} />
       </div>
     )

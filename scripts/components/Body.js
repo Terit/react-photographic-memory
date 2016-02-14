@@ -6,7 +6,6 @@ var Body = React.createClass({
     const card = this.props.cards[key];
     return(
       <Card key={key} image={card.image} match={card.match} />
-
     )
   },
 
