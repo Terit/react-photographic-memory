@@ -10,7 +10,8 @@ var App = React.createClass({
     var type = (this.props.params.tag ? 'tagged' : 'popular');
     this.setFeed(type, this.props.params.tag);
     return { 
-      cards: {}
+      cards: {},
+      gameTime: 60
     };
   },
 
@@ -45,11 +46,23 @@ var App = React.createClass({
     });
   },
 
+  startTimer : function() {
+    while(this.state.gameTime > 0) {
+      setTimeout(function() {        
+        this.state.gameTime -= 1;
+        console.log(this.state.gameTime);
+        this.setState({
+          gameTime : this.state.gameTime
+        });
+      }, 1000);
+    }
+  }, 
+
   render : function() {
     return (
       <div className='row'>
-        <Header tag={this.props.params.tag} />
-        <Body cards={this.state.cards} />
+        <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
+        <Body cards={this.state.cards} startTimer={this.startTimer} />
       </div>
     )
   }

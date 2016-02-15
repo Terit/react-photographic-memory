@@ -16,6 +16,7 @@ var Header = React.createClass({
           <ul className="menu">
             <li className="menu-text">Photographic Memory</li>
             <li className='menu-text'>#{this.props.tag || 'popular'}</li>
+            <li className='menu-text'>Timer: {this.props.gameTime}</li>
           </ul>
         </div>
         <div className="top-bar-right">

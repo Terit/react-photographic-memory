@@ -5,9 +5,9 @@ var Body = React.createClass({
   renderCards : function(key) {
     const card = this.props.cards[key];
     return(
-      <Card key={key} image={card.image} match={card.match} />
+      <Card key={key} image={card.image} match={card.match} onClick={this.props.startTimer} />
     )
-  },
+  }, 
 
   render : function() {
     return(
