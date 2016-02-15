@@ -3,6 +3,7 @@ import React from 'react';
 import Header from './Header';
 import Body from './Body';
 
+// Instagram API
 import Instafeed from 'instafeed.js';
 
 var App = React.createClass({
@@ -70,7 +71,7 @@ var App = React.createClass({
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <Body cards={this.state.cards} timer={this.startTimer} />
+        <Body cards={this.state.cards} />
       </div>
     )
   }

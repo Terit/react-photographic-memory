@@ -8,6 +8,7 @@ var Header = React.createClass({
     event.preventDefault();
     var searchTag = this.refs.searchTag.value;
     this.history.pushState(null, '/' + searchTag);
+    this.refs.tagSearch.reset();
   },
 
   formatTime : function(timeInMs) {
@@ -25,14 +26,14 @@ var Header = React.createClass({
           </ul>
         </div>
         <div className="top-bar-right">
-          <form onSubmit={this.search}>
+          <form ref='tagSearch' onSubmit={this.search}>
             <ul className="menu">
               <li><input type="search" placeholder="Search" ref='searchTag' /></li>
               <li><button type="submit" className="button">Search</button></li>
             </ul>
           </form>
         </div>
-      </div>   
+      </div>
     );
   }
 });
