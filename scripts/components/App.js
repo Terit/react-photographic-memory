@@ -17,6 +17,7 @@ var App = React.createClass({
   },
 
   componentWillReceiveProps : function(nextProps) {
+    console.log('rec props')
     var type = (nextProps.params.tag ? 'tagged' : 'popular');
     this.setFeed(type, nextProps.params.tag);
     this.setState({
@@ -39,9 +40,9 @@ var App = React.createClass({
     // limit the number of images to 8
     imgs.data.slice(0,8).map((img, index)=> {
       // Grab the low_resolution url and set it to the current index of cards
-      this.state.cards[index] = { image: img.images.low_resolution.url, match: index + 8 };
+      this.state.cards[index] = { image: img.images.low_resolution.url, id: index, match: index + 8 };
       // Duplicate the cards
-      this.state.cards[index + 8] = { image: img.images.low_resolution.url, match: index };
+      this.state.cards[index + 8] = { image: img.images.low_resolution.url, id: index + 8, match: index };
     });
 
     // update state

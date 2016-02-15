@@ -17,20 +17,28 @@ var Card = React.createClass({
   },
 
   isMatch : function() {
+    if(this.state.isClicked) {
+      return false;
+    }
+    var canClick = this.props.clicker(this);
+
+    if(!canClick) {
+      return false;
+    }
+
     if(this.state.isMatched) {
       return true;
     }
-
     this.setState({ isClicked : !this.state.isClicked });
   },
 
   render : function() {
-    var url = (this.state.isClicked ? this.props.image : './assets/images/Instagram_Icon_Large.png');
+    var background = (this.state.isClicked ? 'url(' + this.props.image + ') 50% 50% / 183px 183px no-repeat' : 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat');
     return(
       <div className='small-3 columns'>
         <div
           style={{
-            background: 'url(' + url + ') 50% 50% / 200px 200px no-repeat',
+            background: background,
             height: '200px'
           }}
           onClick={this.isMatch}
