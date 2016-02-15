@@ -5,7 +5,7 @@ React version of Photographic Memory
 
 - [ ] Matching logic
 - [ ] Flip animation
-- [ ] Randomize tiles
+- [x] Randomize tiles
 - [ ] Timer
 - [ ] Style
 - [ ] Leaderboard

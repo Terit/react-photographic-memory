@@ -8,17 +8,36 @@ var Body = React.createClass({
       <Card
         key={key}
         image={card.image}
+        number={parseInt(key)}
         match={card.match}
         timer={this.props.timer}
       />
     )
   },
 
+  shuffle : function(array) {
+    var m = array.length, t, i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+
+    return array;
+  },
+
   render : function() {
     return(
       <main >
         <div className='row'>
-          {Object.keys(this.props.cards).map(this.renderCards)}
+          {this.shuffle(Object.keys(this.props.cards)).map(this.renderCards)}
         </div>
       </main>
     );
