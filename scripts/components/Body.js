@@ -5,13 +5,18 @@ var Body = React.createClass({
   renderCards : function(key) {
     const card = this.props.cards[key];
     return(
-      <Card key={key} image={card.image} match={card.match} onClick={this.props.startTimer} />
+      <Card
+        key={key}
+        image={card.image}
+        match={card.match}
+        timer={this.props.timer}
+      />
     )
-  }, 
+  },
 
   render : function() {
     return(
-      <main>
+      <main >
         <div className='row'>
           {Object.keys(this.props.cards).map(this.renderCards)}
         </div>

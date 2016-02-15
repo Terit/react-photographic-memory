@@ -2,7 +2,7 @@ import React from 'react';
 
 var Card = React.createClass({
   getInitialState : function() {
-    return { 
+    return {
       isClicked : false,
       isMatched : false
     };
@@ -30,13 +30,13 @@ var Card = React.createClass({
       <div className='small-3 columns'>
         <div
           style={{
-            background: 'url(' + url + ') 50% 50% / 200px 200px no-repeat', 
+            background: 'url(' + url + ') 50% 50% / 200px 200px no-repeat',
             height: '200px'
           }}
           onClick={this.isMatch}
-        ></div> 
+        ></div>
       </div>
-    )    
+    )
   }
 })
 

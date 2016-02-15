@@ -9,15 +9,18 @@ var App = React.createClass({
   getInitialState : function() {
     var type = (this.props.params.tag ? 'tagged' : 'popular');
     this.setFeed(type, this.props.params.tag);
-    return { 
+    return {
       cards: {},
-      gameTime: 60
+      gameTime: 6000
     };
   },
 
   componentWillReceiveProps : function(nextProps) {
     var type = (nextProps.params.tag ? 'tagged' : 'popular');
     this.setFeed(type, nextProps.params.tag);
+    this.setState({
+      gameTime : 6000
+    });
   },
 
   setFeed : function(type, tag) {
@@ -47,22 +50,27 @@ var App = React.createClass({
   },
 
   startTimer : function() {
-    while(this.state.gameTime > 0) {
-      setTimeout(function() {        
-        this.state.gameTime -= 1;
-        console.log(this.state.gameTime);
-        this.setState({
-          gameTime : this.state.gameTime
-        });
-      }, 1000);
+    if(this.state.gameTime === 6000) {
+      this.runTimer();
     }
-  }, 
+    return true;
+  },
+
+  runTimer : function() {
+    if(this.state.gameTime > 0) {
+      this.setState({
+        gameTime : (this.state.gameTime -= 100)
+      });
+      setTimeout(this.runTimer, 100);
+    }
+    return true;
+  },
 
   render : function() {
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <Body cards={this.state.cards} startTimer={this.startTimer} />
+        <Body cards={this.state.cards} timer={this.startTimer} />
       </div>
     )
   }
