@@ -16,7 +16,17 @@ var Card = React.createClass({
     })
   },
 
+  shouldComponentUpdate : function() {
+    if(this.state.isMatched) {
+      return false;
+    }
+    return true;
+  },
+
   isMatch : function() {
+    if(!this.props.timer()) {
+      return false;
+    }
     if(this.state.isClicked) {
       return false;
     }

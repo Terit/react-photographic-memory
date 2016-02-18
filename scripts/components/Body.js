@@ -19,8 +19,13 @@ var Body = React.createClass({
         match={card.match}
         timer={this.props.timer}
         clicker={this.clicker}
+        onClick={this.props.timer}
       />
     )
+  },
+
+  componentDidUpdate : function(prevProps, prevState) {
+    // console.log(prevProps)
   },
 
   shouldComponentUpdate : function(nextProps, nextState) {
