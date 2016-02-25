@@ -14,54 +14,21 @@ var App = React.createClass({
   getInitialState : function() {
     return {
       cards: {},
-      gameTime: 6000
+      gameTime: 60000
     };
   },
 
   componentDidMount : function() {
-    if(this.props.params.tag) {
-      var url = 'https://api.instagram.com/v1/tags/'+this.props.params.tag+'/media/recent?client_id=642176ece1e7445e99244cec26f4de1f&callback=?'
-    } else {
-      var url = 'https://api.instagram.com/v1/media/popular.json?client_id=642176ece1e7445e99244cec26f4de1f&callback=?'
-    }
-
-    // var auth_url = 'https://api.instagram.com/oauth/authorize/?client_id='+InstagramClientId+'&redirect_uri='+InstagramRedirectUri+'&response_type=token';
-    // var url = 'https://api.instagram.com/v1/tags/search?q=snowy&access_token=' + InstagramAccessToken
-    fetch(url)
-      .then((response) => {
-        if (response.status !== 200) {
-          console.log('Looks like there was a problem. Status Code: ' +  response.status);
-          return;
-        }
-
-        response.json().then((response) => {
-          return response.data.map(function(p){
-            return {
-                id: p.id,
-                url: p.link,
-                src: p.images.low_resolution.url,
-                title: p.caption ? p.caption.text : '',
-                favorite: false
-            };
-          });
-        }).then(this.updateCards)
-          .then((cards) => {
-            this.setState({
-              cards : cards
-            });
-          });
-      });
+    this.fetchCards(this.props);
   },
 
   componentWillReceiveProps : function(nextProps) {
-    // console.log('rec props')
-    // var type = (nextProps.params.tag ? 'tagged' : 'popular');
-    // this.setFeed(type, nextProps.params.tag);
-    // this.setState({
-    //   gameTime : 6000
-    // });
-    if(nextProps.params.tag) {
-      var url = 'https://api.instagram.com/v1/tags/'+nextProps.params.tag+'/media/recent?client_id=642176ece1e7445e99244cec26f4de1f&callback=?'
+    this.fetchCards(nextProps);
+  },
+
+  fetchCards : function(props) {
+    if(props.params.tag) {
+      var url = 'https://api.instagram.com/v1/tags/'+props.params.tag+'/media/recent?client_id=642176ece1e7445e99244cec26f4de1f&callback=?'
     } else {
       var url = 'https://api.instagram.com/v1/media/popular.json?client_id=642176ece1e7445e99244cec26f4de1f&callback=?'
     }
