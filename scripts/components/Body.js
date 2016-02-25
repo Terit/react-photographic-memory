@@ -4,7 +4,7 @@ import Card from './Card';
 var Body = React.createClass({
   getInitialState : function() {
     return {
-      cardsClicked : 0,
+      cardsClicked : [],
       shuffled: false
     }
   },
@@ -24,15 +24,12 @@ var Body = React.createClass({
     )
   },
 
-  componentDidUpdate : function(prevProps, prevState) {
-    // console.log(prevProps)
-  },
-
   shouldComponentUpdate : function(nextProps, nextState) {
-    if(nextState.cardsClicked !== 0 && nextState.cardsClicked < 3) {
+    if(nextState.cardsClicked.length !== 0 && nextState.cardsClicked.length < 3) {
       return false;
     }
     return true;
+    // return false
   },
 
   componentDidMount : function() {
@@ -43,39 +40,35 @@ var Body = React.createClass({
   },
 
   clicker : function(card) {
-    var canClick = true;
-    if(this.state.cardsClicked === 2) {
-      canClick = false;
-      this.state.cardsClicked = -1
+    var isMatched = false;
+    if(this.state.cardsClicked[this.state.cardsClicked.length - 1] === card.props.match) {
+      isMatched = true;
     }
-    this.state.cardsClicked++;
+    this.state.cardsClicked.push(card.props.number);
+
+    if(this.state.cardsClicked.length === 3) {
+      this.state.cardsClicked = [];
+    }
 
     this.setState({
       cardsClicked : this.state.cardsClicked
     });
-    return canClick;
-  },
+//     console.log(this.state.cardsClicked)
+//     if(this.state.cardsClicked === 2) {
+//       console.log('here')
+//       this.state.cardsClicked = -1;
+//     }
+//     this.state.cardsClicked++;
 
-  shuffle : function(array) {
-    var m = array.length, t, i;
-
-    // While there remain elements to shuffle…
-    while (m) {
-
-      // Pick a remaining element…
-      i = Math.floor(Math.random() * m--);
-
-      // And swap it with the current element.
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-    return array;
+//     this.setState({
+//       cardsClicked : this.state.cardsClicked
+//     });
+// console.log('end of clicker ' + this.state.cardsClicked)
+    return { canClick : true, isMatched: isMatched };
   },
 
   render : function() {
-    var cards = (!this.state.shuffled ? this.shuffle(Object.keys(this.props.cards)) : Object.keys(this.props.cards));
-
+    var cards = Object.keys(this.props.cards);
     return(
       <main >
         <div className='row'>

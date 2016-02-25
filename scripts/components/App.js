@@ -63,13 +63,13 @@ var App = React.createClass({
   },
 
   updateCards : function(imgs) {
-    var cards = {};
+    var cards = [];
     // limit the number of images to 8
     imgs.slice(0,8).map((img, index)=> {
       // Grab the low_resolution url and set it to the current index of cards
-      cards[index] = { image: img.src, id: index, match: index + 8 };
+      cards.push({ image: img.src, id: index, match: index + 8 });
       // Duplicate the cards
-      cards[index + 8] = { image: img.src, id: index + 8, match: index };
+      cards.push({ image: img.src, id: index + 8, match: index });
     });
     return cards;
   },
@@ -97,11 +97,28 @@ var App = React.createClass({
     return true;
   },
 
+  shuffle : function(array) {
+    var m = array.length, t, i;
+
+    // While there remain elements to shuffle…
+    while (m) {
+
+      // Pick a remaining element…
+      i = Math.floor(Math.random() * m--);
+
+      // And swap it with the current element.
+      t = array[m];
+      array[m] = array[i];
+      array[i] = t;
+    }
+    return array;
+  },
+
   render : function() {
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <Body cards={this.state.cards} timer={this.startTimer} />
+        <Body cards={this.shuffle(this.state.cards)} timer={this.startTimer} />
       </div>
     )
   }

@@ -6,10 +6,10 @@ var Card = React.createClass({
       isClicked : false,
       isMatched : false
     };
-
   },
 
-  componentWillReceiveProps : function() {
+  componentWillReceiveProps : function(nextProps) {
+    console.log(nextProps)
     this.setState({
       isClicked : false,
       isMatched : false
@@ -27,19 +27,20 @@ var Card = React.createClass({
     if(!this.props.timer()) {
       return false;
     }
-    if(this.state.isClicked) {
-      return false;
-    }
-    var canClick = this.props.clicker(this);
-
-    if(!canClick) {
+    if(this.state.isClicked || this.state.isMatched) {
       return false;
     }
 
-    if(this.state.isMatched) {
-      return true;
+    var clickResults = this.props.clicker(this);
+
+    if(!clickResults.canClick) {
+      return false;
     }
-    this.setState({ isClicked : !this.state.isClicked });
+
+    this.setState({
+      isClicked : !this.state.isClicked,
+      isMatched : clickResults.isMatched
+    });
   },
 
   render : function() {

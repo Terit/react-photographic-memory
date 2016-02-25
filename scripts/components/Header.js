@@ -12,7 +12,7 @@ var Header = React.createClass({
   },
 
   formatTime : function(timeInMs) {
-    return (parseFloat(timeInMs / 100))
+    return (parseFloat(timeInMs / 1000))
   },
 
   render : function() {
