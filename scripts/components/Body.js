@@ -4,8 +4,7 @@ import Card from './Card';
 var Body = React.createClass({
   getInitialState : function() {
     return {
-      cardsClicked : [],
-      shuffled: false
+      cardsClicked : []
     }
   },
 
@@ -29,22 +28,22 @@ var Body = React.createClass({
       return false;
     }
     return true;
-    // return false
   },
 
-  componentDidMount : function() {
-    this.state.shuffled = true;
-    this.setState({
-      shuffled : this.state.shuffled
-    });
+  componentDidUpdate : function(prevProps, prevState) {
+    // console.log('component updated')
   },
 
   clicker : function(card) {
     var isMatched = false;
-    if(this.state.cardsClicked[this.state.cardsClicked.length - 1] === card.props.match) {
+    var lastCard = this.state.cardsClicked[this.state.cardsClicked.length - 1];
+    if(lastCard && (lastCard.props.number === card.props.match)) {
+      this.state.cardsClicked[this.state.cardsClicked.length - 1].setState({
+        isMatched : true
+      });
       isMatched = true;
     }
-    this.state.cardsClicked.push(card.props.number);
+    this.state.cardsClicked.push(card);
 
     if(this.state.cardsClicked.length === 3) {
       this.state.cardsClicked = [];

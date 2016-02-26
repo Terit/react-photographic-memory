@@ -9,10 +9,9 @@ var Card = React.createClass({
   },
 
   componentWillReceiveProps : function(nextProps) {
-    console.log(nextProps)
     this.setState({
-      isClicked : false,
-      isMatched : false
+      isClicked : this.state.isMatched,
+      isMatched : this.state.isMatched
     })
   },
 
