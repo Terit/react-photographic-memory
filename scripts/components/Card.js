@@ -9,10 +9,10 @@ var Card = React.createClass({
   },
 
   componentWillReceiveProps : function(nextProps) {
-    this.setState({
-      isClicked : this.state.isMatched,
-      isMatched : this.state.isMatched
-    })
+    // this.setState({
+    //   isClicked : this.state.isMatched,
+    //   isMatched : this.state.isMatched
+    // });
   },
 
   shouldComponentUpdate : function() {
@@ -23,23 +23,35 @@ var Card = React.createClass({
   },
 
   isMatch : function() {
-    if(!this.props.timer()) {
-      return false;
-    }
-    if(this.state.isClicked || this.state.isMatched) {
-      return false;
-    }
+    // if(!this.props.timer()) {
+    //   return false;
+    // }
 
-    var clickResults = this.props.clicker(this);
-
-    if(!clickResults.canClick) {
-      return false;
-    }
-
-    this.setState({
-      isClicked : !this.state.isClicked,
-      isMatched : clickResults.isMatched
+    // if(this.state.isClicked || this.state.isMatched) {
+    //   return false;
+    // }
+    var x = new Promise( (resolve, reject) => {
+      this.props.clicker(this)
     });
+    console.log(x)
+    x.then( function(card) {
+          console.log('here')
+        // if(card.state.isClicked && !card.state.isMatched) {
+        //   setTimeout(this.setState({
+        //     isClicked : false
+        //   }), 1500);
+        // }
+    });
+    // var clickResults = this.props.clicker(this);
+
+    // if(!clickResults.canClick) {
+    //   return false;
+    // }
+
+    // this.setState({
+    //   isClicked : !this.state.isClicked,
+    //   isMatched : clickResults.isMatched
+    // });
   },
 
   render : function() {

@@ -118,7 +118,7 @@ var App = React.createClass({
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <Body cards={this.shuffle(this.state.cards)} timer={this.startTimer} />
+        <Body cards={/*this.shuffle(this.state.cards)*/this.state.cards} timer={this.startTimer} />
       </div>
     )
   }

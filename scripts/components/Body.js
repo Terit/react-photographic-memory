@@ -23,47 +23,40 @@ var Body = React.createClass({
     )
   },
 
-  shouldComponentUpdate : function(nextProps, nextState) {
-    if(nextState.cardsClicked.length !== 0 && nextState.cardsClicked.length < 3) {
-      return false;
-    }
-    return true;
-  },
-
-  componentDidUpdate : function(prevProps, prevState) {
-    // console.log('component updated')
-  },
-
   clicker : function(card) {
     var isMatched = false;
-    var lastCard = this.state.cardsClicked[this.state.cardsClicked.length - 1];
-    if(lastCard && (lastCard.props.number === card.props.match)) {
-      this.state.cardsClicked[this.state.cardsClicked.length - 1].setState({
-        isMatched : true
+    var lastCard = this.state.cardsClicked[0];
+    // if there is a lastCard, ie 1 card is already clicked, update the lastCard
+    if(lastCard) {
+      // Check if the last card is a match with the current card
+      if(lastCard.props.number === card.props.match) {
+        // It is a match, set isMatched to true
+        isMatched = true;
+      }
+
+      lastCard.setState({
+        isMatched : isMatched,
+        isClicked : isMatched
       });
-      isMatched = true;
     }
+
+    // Update the current card
+    card.setState({
+      isMatched : isMatched,
+      isClicked : true
+    });
+
+    // Add this card into the card history
     this.state.cardsClicked.push(card);
 
-    if(this.state.cardsClicked.length === 3) {
+    // if the card history is 3 cards reset it
+    if(this.state.cardsClicked.length === 2) {
       this.state.cardsClicked = [];
     }
-
     this.setState({
       cardsClicked : this.state.cardsClicked
     });
-//     console.log(this.state.cardsClicked)
-//     if(this.state.cardsClicked === 2) {
-//       console.log('here')
-//       this.state.cardsClicked = -1;
-//     }
-//     this.state.cardsClicked++;
-
-//     this.setState({
-//       cardsClicked : this.state.cardsClicked
-//     });
-// console.log('end of clicker ' + this.state.cardsClicked)
-    return { canClick : true, isMatched: isMatched };
+    return true;
   },
 
   render : function() {
