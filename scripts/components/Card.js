@@ -1,4 +1,5 @@
 import React from 'react';
+import helpers from '../helpers/game_logic';
 
 var Card = React.createClass({
   getInitialState : function() {
@@ -9,49 +10,13 @@ var Card = React.createClass({
   },
 
   componentWillReceiveProps : function(nextProps) {
-    // this.setState({
-    //   isClicked : this.state.isMatched,
-    //   isMatched : this.state.isMatched
-    // });
-  },
-
-  shouldComponentUpdate : function() {
-    if(this.state.isMatched) {
-      return false;
+    // Check to see if the cards have been updated, ie a new game
+    if(this.props.image !== nextProps.image) {
+      this.setState({
+        isClicked : false,
+        isMatched : false
+      });
     }
-    return true;
-  },
-
-  isMatch : function() {
-    // if(!this.props.timer()) {
-    //   return false;
-    // }
-
-    // if(this.state.isClicked || this.state.isMatched) {
-    //   return false;
-    // }
-    var x = new Promise( (resolve, reject) => {
-      this.props.clicker(this)
-    });
-    console.log(x)
-    x.then( function(card) {
-          console.log('here')
-        // if(card.state.isClicked && !card.state.isMatched) {
-        //   setTimeout(this.setState({
-        //     isClicked : false
-        //   }), 1500);
-        // }
-    });
-    // var clickResults = this.props.clicker(this);
-
-    // if(!clickResults.canClick) {
-    //   return false;
-    // }
-
-    // this.setState({
-    //   isClicked : !this.state.isClicked,
-    //   isMatched : clickResults.isMatched
-    // });
   },
 
   render : function() {
@@ -63,7 +28,7 @@ var Card = React.createClass({
             background: background,
             height: '200px'
           }}
-          onClick={this.isMatch}
+          onClick={helpers.shouldFlip.bind(this, this)}
         ></div>
       </div>
     )

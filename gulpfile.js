@@ -6,7 +6,6 @@ var babelify = require('babelify');
 var watchify = require('watchify');
 var notify = require('gulp-notify');
 
-var stylus = require('gulp-stylus');
 var autoprefixer = require('gulp-autoprefixer');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
@@ -28,12 +27,7 @@ gulp.task('styles',function() {
     .pipe(gulp.dest('build/css/fonts'))
 
   // Compiles CSS
-  gulp.src('css/style.styl')
-    .pipe(stylus())
-    .pipe(autoprefixer())
-    .pipe(gulp.dest('./build/css/'))
-    .pipe(reload({stream:true}))
-  // Test
+  // Foundation CSS
   gulp.src('css/foundation.css')
     .pipe(gulp.dest('./build/css'))
     .pipe(reload({stream:true}))
@@ -77,7 +71,7 @@ function buildScript(file, watch) {
     transform:  [babelify.configure({ stage : 0 })]
   };
 
-  // watchify() if watch requested, otherwise run browserify() once 
+  // watchify() if watch requested, otherwise run browserify() once
   var bundler = watch ? watchify(browserify(props)) : browserify(props);
 
   function rebundle() {

@@ -3,7 +3,7 @@ React version of Photographic Memory
 
 ## Todo
 
-- [ ] Matching logic
+- [x] Matching logic
 - [ ] Flip animation
 - [x] Randomize tiles
 - [ ] Timer
