@@ -28,7 +28,11 @@ gulp.task('styles',function() {
 
   // Compiles CSS
   // Foundation CSS
-  gulp.src('css/foundation.css')
+  gulp.src('css/foundation.min.css')
+    .pipe(gulp.dest('./build/css'))
+    .pipe(reload({stream:true}))
+
+  gulp.src('css/app.css')
     .pipe(gulp.dest('./build/css'))
     .pipe(reload({stream:true}))
 });

@@ -1,8 +1,22 @@
 import React from 'react';
 import { History } from 'react-router';
 
+import timeHelpers from '../helpers/time_helpers';
+
 var Header = React.createClass({
   mixins: [History],
+
+  getInitialState: function() {
+    return {
+      gameTime : this.props.gameTime
+    };
+  },
+
+  componentWillReceiveProps : function(nextProps) {
+    if(nextProps.gameOn) {
+      timeHelpers.startTimer(this);
+    }
+  },
 
   search : function(event) {
     event.preventDefault();
@@ -22,7 +36,7 @@ var Header = React.createClass({
           <ul className="menu">
             <li className="menu-text">Photographic Memory</li>
             <li className='menu-text'>#{this.props.tag || 'popular'}</li>
-            <li className='menu-text'>Timer: {this.formatTime(this.props.gameTime)}</li>
+            <li className='menu-text'>Timer: {this.formatTime(this.state.gameTime)}</li>
           </ul>
         </div>
         <div className="top-bar-right">

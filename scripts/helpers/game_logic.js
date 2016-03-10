@@ -2,7 +2,6 @@ var mouseClicks = null;
 var matches = null;
 var clickedCards = [];
 
-
 var helpers = {
   shuffle : function(array) {
     var m = array.length, t, i;
@@ -40,8 +39,7 @@ var helpers = {
           // Update the state for the matches
           clickedCards.map(helpers.updateCard.bind(null, value));
           // Regardless, reset the click counter and clickedCards array
-          mouseClicks = 0;
-          clickedCards = [];
+          helpers.resetMatches();
         }
       }
     }
@@ -54,6 +52,11 @@ var helpers = {
       isClicked : value
     });
     return card;
+  },
+
+  resetMatches : function() {
+    mouseClicks = 0;
+    clickedCards = [];
   }
 }
 

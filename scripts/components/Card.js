@@ -1,5 +1,6 @@
 import React from 'react';
 import helpers from '../helpers/game_logic';
+import timeHelpers from '../helpers/time_helpers'
 
 var Card = React.createClass({
   getInitialState : function() {
@@ -19,6 +20,11 @@ var Card = React.createClass({
     }
   },
 
+  startTimer : function() {
+    this.props.timer();
+    helpers.shouldFlip(this);
+  },
+
   render : function() {
     var background = (this.state.isClicked ? 'url(' + this.props.image + ') 50% 50% / 183px 183px no-repeat' : 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat');
     return(
@@ -28,7 +34,7 @@ var Card = React.createClass({
             background: background,
             height: '200px'
           }}
-          onClick={helpers.shouldFlip.bind(this, this)}
+          onClick={this.startTimer}
         ></div>
       </div>
     )
