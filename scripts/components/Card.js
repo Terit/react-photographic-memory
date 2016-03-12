@@ -22,7 +22,7 @@ var Card = React.createClass({
 
   startTimer : function() {
     this.props.timer();
-    helpers.shouldFlip(this);
+    ;
   },
 
   render : function() {
@@ -34,7 +34,7 @@ var Card = React.createClass({
             background: background,
             height: '200px'
           }}
-          onClick={this.startTimer}
+          onClick={helpers.shouldFlip.bind(null, this)}
         ></div>
       </div>
     )
