@@ -15,6 +15,7 @@ var browserSync = require('browser-sync');
 var reload = browserSync.reload;
 var historyApiFallback = require('connect-history-api-fallback')
 
+var connect = require('gulp-connect');
 
 /*
   Styles Task
@@ -114,7 +115,8 @@ gulp.task('default', ['images','styles','scripts','browser-sync'], function() {
 
 gulp.task('serveprod', function() {
   connect.server({
-    root: ['./'],
+    root: ['.'],
+    fallback: 'index.html',
     port: process.env.PORT || 5000, // localhost:5000
     livereload: false
   });
