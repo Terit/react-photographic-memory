@@ -117,5 +117,9 @@ gulp.task('serveprod', function() {
     root: ['./'],
     port: process.env.PORT || 5000, // localhost:5000
     livereload: false
-  })
-})
+  });
+});
+
+gulp.task('build', ['images','styles','scripts', 'serveprod'], function() {
+  return buildScript('main.js', true);
+});
