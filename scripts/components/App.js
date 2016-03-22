@@ -5,7 +5,7 @@ import Body from './Body';
 import Modal from './Modal';
 
 import helpers from '../helpers/game_logic';
-import instagram from '../helpers/instagram';
+import api from '../helpers/photographicMemoryApi'
 
 var App = React.createClass({
 
@@ -26,7 +26,7 @@ var App = React.createClass({
   },
 
   resetCards : function(props) {
-    instagram.fetchCards(props)
+    api.fetchCards(props)
       .then((cards) => {
         this.setState({
           cards : cards,

@@ -1,10 +1,10 @@
-var mouseClicks = null;
-var matches = null;
-var clickedCards = [];
+let mouseClicks = null;
+let matches = null;
+let clickedCards = [];
 
-var helpers = {
+let helpers = {
   shuffle : function(array) {
-    var m = array.length, t, i;
+    let m = array.length, t, i;
 
     // While there remain elements to shuffle…
     while (m) {
@@ -35,7 +35,7 @@ var helpers = {
         // If there are 2 cards, we can see if it's a match
         if(clickedCards.length === 2) {
           // Check if the cards are a match
-          var value = clickedCards[0].props.number === currentCard.props.match ? true : false;
+          let value = clickedCards[0].props.number === currentCard.props.match ? true : false;
           // Update the state for the matches
           clickedCards.map(helpers.updateCard.bind(null, value));
           // Regardless, reset the click counter and clickedCards array
