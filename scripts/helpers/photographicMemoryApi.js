@@ -1,4 +1,4 @@
-const tagURL = 'http://localhost:3002/api/images/'
+const tagURL = 'http://localhost:3002/api/images/';
 
 let api = {
   fetchCards : function(props) {

@@ -9,3 +9,9 @@ React version of Photographic Memory
 - [ ] Timer
 - [ ] Style
 - [ ] Leaderboard
+- [ ] Add modal to start game
+- [ ] Deploy
+  - Deploy Sinatra api
+  - Get api url
+  - Deploy to heroku
+  - Win?
