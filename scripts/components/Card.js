@@ -1,8 +1,8 @@
 import React from 'react';
-import helpers from '../helpers/game_logic';
-import timeHelpers from '../helpers/time_helpers'
+import * as helpers from '../helpers/gameLogic';
+import * as timeHelpers from '../helpers/timeHelpers';
 
-var Card = React.createClass({
+let Card = React.createClass({
   getInitialState : function() {
     return {
       isClicked : false,
@@ -20,13 +20,9 @@ var Card = React.createClass({
     }
   },
 
-  startTimer : function() {
-    this.props.timer();
-    ;
-  },
-
   render : function() {
-    var background = (this.state.isClicked ? 'url(' + this.props.image + ') 50% 50% / 183px 183px no-repeat' : 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat');
+    let background = (this.state.isClicked ? 'url(' + this.props.image + ') 50% 50% / 183px 183px no-repeat' : 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat');
+    let className = this.state.isClicked ? 'clicked' : '';
     return(
       <div className='small-3 columns'>
         <div
@@ -35,10 +31,11 @@ var Card = React.createClass({
             height: '200px'
           }}
           onClick={helpers.shouldFlip.bind(null, this)}
+          className={`card ${className}`}
         ></div>
       </div>
     )
   }
-})
+});
 
 export default Card;

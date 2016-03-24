@@ -1,5 +1,5 @@
 import React from 'react';
-import timeHelpers from '../helpers/time_helpers';
+import * as timeHelpers from '../helpers/timeHelpers';
 
 var Modal = React.createClass({
   getInitialState : function() {

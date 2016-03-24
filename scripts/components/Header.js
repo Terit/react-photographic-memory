@@ -1,7 +1,7 @@
 import React from 'react';
 import { History } from 'react-router';
 
-import timeHelpers from '../helpers/time_helpers';
+import * as timeHelpers from '../helpers/timeHelpers';
 
 var Header = React.createClass({
   mixins: [History],

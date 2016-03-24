@@ -4,8 +4,8 @@ import Header from './Header';
 import Body from './Body';
 import Modal from './Modal';
 
-import helpers from '../helpers/game_logic';
-import api from '../helpers/photographicMemoryApi'
+import * as helpers from '../helpers/gameLogic';
+import api from '../helpers/photographicMemoryApi';
 
 var App = React.createClass({
 

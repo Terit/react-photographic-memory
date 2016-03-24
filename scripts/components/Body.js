@@ -10,7 +10,6 @@ var Body = React.createClass({
         image={card.image}
         number={card.id}
         match={card.match}
-        timer={this.props.timer}
       />
     )
   },
