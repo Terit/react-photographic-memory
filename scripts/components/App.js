@@ -59,9 +59,7 @@ var App = React.createClass({
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <div className="progress" aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'>
-          <div id='css-progress-bar' className="progress-meter" style={{width: '100%'}}></div>
-        </div>
+        <ProgressBar />
         <Modal gameStatus={this.state.gameOn} startTimer={this.startGame} />
         <Body cards={helpers.shuffle(this.state.cards)} timer={this.startGame} />
       </div>

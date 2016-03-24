@@ -27,10 +27,7 @@ var Modal = React.createClass({
       <div className={`modal large-11 small-12 columns ${this.state.gameOn ? 'hide' : ''}`}>
         <div className='row'>
           <div className='small-2 columns small-offset-5'>
-            <button
-              onClick={this.gameOn}
-              className='button small'
-            >
+            <button onClick={this.gameOn} className='button small'>
               Start Game
             </button>
           </div>
