@@ -1,7 +1,7 @@
 import React from 'react'
 import * as timeHelpers from '../helpers/timeHelpers'
 
-var Timer = React.createClass({
+export default React.createClass({
   getInitialState: function() {
     return {
       gameTime : this.props.gameTime
@@ -13,6 +13,4 @@ var Timer = React.createClass({
       <li className='menu-text'>Timer: {timeHelpers.formatTime(this.props.gameTime)}</li>
     )
   }
-})
-
-export default Timer;
+});

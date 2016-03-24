@@ -1,7 +1,7 @@
 import React from 'react';
 import * as timeHelpers from '../helpers/timeHelpers';
 
-var Modal = React.createClass({
+let Modal = React.createClass({
   getInitialState : function() {
     return {
       gameOn : this.props.gameStatus
@@ -26,8 +26,8 @@ var Modal = React.createClass({
     return(
       <div className={`modal large-11 small-12 columns ${this.state.gameOn ? 'hide' : ''}`}>
         <div className='row'>
-          <div className='small-2 columns small-offset-5'>
-            <button onClick={this.gameOn} className='button small'>
+          <div id='buttons' className='small-3 small-centered columns'>
+            <button id='button' onClick={this.gameOn} className='button large'>
               Start Game
             </button>
           </div>

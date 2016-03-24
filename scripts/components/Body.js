@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-var Body = React.createClass({
+let Body = React.createClass({
   renderCards : function(key) {
     const card = this.props.cards[key];
     return(
@@ -15,7 +15,7 @@ var Body = React.createClass({
   },
 
   render : function() {
-    var cards = Object.keys(this.props.cards);
+    let cards = Object.keys(this.props.cards);
     return(
       <main >
         <div className='row'>

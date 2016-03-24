@@ -26,3 +26,13 @@
   background: rgba(0, 0, 255, 0.3);
   position: absolute;
 }
+
+#buttons {
+  height: 400px;
+}
+
+#buttons > button {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}

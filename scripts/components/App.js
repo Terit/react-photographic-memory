@@ -1,14 +1,16 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 
 import Header from './Header';
 import Body from './Body';
 import Modal from './Modal';
+import ProgressBar from './ProgressBar';
 
 import * as helpers from '../helpers/gameLogic';
 import * as timers from '../helpers/timeHelpers';
 import api from '../helpers/photographicMemoryApi';
 
-var App = React.createClass({
+let App = React.createClass({
   getInitialState : function() {
     return {
       cards: {},
@@ -31,7 +33,7 @@ var App = React.createClass({
     this.state.gameTime = 60000;
     this.resetCards(props);
     document.getElementsByClassName('progress')[0]
-      .outerHTML = "<div class='progress' aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'><div id='css-progress-bar' class='progress-meter' style={width: '100%'}></div></div>"
+      .outerHTML = ReactDOMServer.renderToString(<ProgressBar />)
   },
 
   resetCards : function(props) {

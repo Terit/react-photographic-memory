@@ -1,6 +1,6 @@
 import React from 'react';
 
-let ProgressBar = React.createClass({
+export default React.createClass({
   render : () => {
     return(
       <div className="progress" aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'>
@@ -9,5 +9,3 @@ let ProgressBar = React.createClass({
     )
   }
 });
-
-export default ProgressBar;
