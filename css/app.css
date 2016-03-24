@@ -19,3 +19,10 @@
   webkit-transform: webkit-rotateY(180deg);
   transform: rotateY(180deg);
 }
+
+.modal {
+  height: 800px;
+  z-index: 100;
+  background: rgba(0, 0, 255, 0.3);
+  position: absolute;
+}

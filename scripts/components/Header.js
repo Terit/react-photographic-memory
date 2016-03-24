@@ -1,32 +1,15 @@
 import React from 'react';
 import { History } from 'react-router';
+import Timer from './Timer';
 
-import * as timeHelpers from '../helpers/timeHelpers';
-
-var Header = React.createClass({
+let Header = React.createClass({
   mixins: [History],
-
-  getInitialState: function() {
-    return {
-      gameTime : this.props.gameTime
-    };
-  },
-
-  componentWillReceiveProps : function(nextProps) {
-    if(nextProps.gameOn) {
-      timeHelpers.startTimer(this);
-    }
-  },
 
   search : function(event) {
     event.preventDefault();
-    var searchTag = this.refs.searchTag.value;
+    let searchTag = this.refs.searchTag.value;
     this.history.pushState(null, '/' + searchTag);
     this.refs.tagSearch.reset();
-  },
-
-  formatTime : function(timeInMs) {
-    return (parseFloat(timeInMs / 1000))
   },
 
   render : function() {
@@ -36,7 +19,7 @@ var Header = React.createClass({
           <ul className="menu">
             <li className="menu-text">Photographic Memory</li>
             <li className='menu-text'>#{this.props.tag || 'popular'}</li>
-            <li className='menu-text'>Timer: {this.formatTime(this.state.gameTime)}</li>
+            <Timer gameTime={this.props.gameTime} />
           </ul>
         </div>
         <div className="top-bar-right">

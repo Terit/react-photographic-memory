@@ -7,7 +7,7 @@ React version of Photographic Memory
 - [ ] Flip animation
 - [x] Randomize tiles
 - [ ] Timer
-- [ ] Style
+- [x] Style
 - [ ] Leaderboard
 - [ ] Add modal to start game
 - [ ] Deploy
