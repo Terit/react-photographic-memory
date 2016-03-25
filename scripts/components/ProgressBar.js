@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default React.createClass({
-  render : () => {
+  render : function() {
     return(
       <div className="progress" aria-valuenow='100' aria-valuemin='0' aria-valuemax='100'>
-        <div id='css-progress-bar' className="progress-meter" style={{width: '100%'}}></div>
+        <div id='css-progress-bar' className="progress-meter" style={{width: `${this.props.width}%`}}></div>
       </div>
     )
   }

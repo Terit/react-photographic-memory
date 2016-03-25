@@ -3,7 +3,7 @@ import * as helpers from '../helpers/gameLogic';
 import * as timeHelpers from '../helpers/timeHelpers';
 
 let Card = React.createClass({
-  getInitialState : function() {
+  getInitialState : () => {
     return {
       isClicked : false,
       isMatched : false

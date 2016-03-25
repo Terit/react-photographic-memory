@@ -31,9 +31,10 @@ let App = React.createClass({
   resetGame : function(props) {
     this.state.gameOn = false;
     this.state.gameTime = 60000;
+    helpers.matchCount = 0;
     this.resetCards(props);
     document.getElementsByClassName('progress')[0]
-      .outerHTML = ReactDOMServer.renderToString(<ProgressBar />)
+      .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={100} />)
   },
 
   resetCards : function(props) {
@@ -57,13 +58,26 @@ let App = React.createClass({
     }
   },
 
+  gameOver : function() {
+    if(helpers.matchCount === 8) {
+      this.state.gameOn = false;
+      this.setState({
+        gameOn : this.state.gameOn
+      });
+      let timeLeft = timers.percentTimeLeft(this.state.gameTime)
+      document.getElementsByClassName('progress')[0]
+        .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
+    }
+    return true
+  },
+
   render : function() {
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <ProgressBar />
-        <Modal gameStatus={this.state.gameOn} startTimer={this.startGame} />
-        <Body cards={helpers.shuffle(this.state.cards)} timer={this.startGame} />
+        <ProgressBar width={100} />
+        <Modal gameOn={this.state.gameOn} startGame={this.startGame} />
+        <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
       </div>
     )
   }

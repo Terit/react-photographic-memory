@@ -1,6 +1,7 @@
 let mouseClicks = null;
 let matches = null;
 let clickedCards = [];
+export let matchCount = 0;
 
 export let shuffle = (array) => {
   let m = array.length, t, i;
@@ -31,6 +32,7 @@ export let shouldFlip = (currentCard) => {
         .then(isMatch)
         .then(resetMatches)
         .catch(e => '')
+        .then(currentCard.props.gameOver)
     }
   }
   return true;
@@ -50,8 +52,12 @@ let isMatch = (cards) => new Promise((resolve, reject) => {
   if(cards.length === 2) {
     // Check if the cards are a match
     let value = cards[0].props.number === cards[1].props.match ? true : false;
+    // Updated # of matches
+    if(value) matchCount += 1;
+
     // Update the state for the matches
     cards.map(updateCard.bind(null, value));
+
     // Regardless, reset the click counter and clickedCards array
     // resetMatches();
     return resolve(true);

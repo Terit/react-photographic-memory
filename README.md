@@ -4,12 +4,13 @@ React version of Photographic Memory
 ## Todo
 
 - [x] Matching logic
-- [ ] Flip animation
+- [x] Flip animation
 - [x] Randomize tiles
 - [ ] Timer
 - [x] Style
 - [ ] Leaderboard
-- [ ] Add modal to start game
+- [x] Add modal to start game
+- [ ] End game functionality
 - [ ] Deploy
   - Deploy Sinatra api
   - Get api url

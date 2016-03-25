@@ -10,6 +10,7 @@ let Body = React.createClass({
         image={card.image}
         number={card.id}
         match={card.match}
+        gameOver={this.props.gameOver}
       />
     )
   },

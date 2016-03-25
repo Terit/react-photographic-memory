@@ -14,8 +14,12 @@ export let startTimer = (timer) => {
   }
   document.getElementById('css-progress-bar').style.width = '0%';
   document.getElementsByClassName('progress')[0].style.background = '#ec5840';
-  // runTimer(timer);
+  setTimeout(
+    timer.setState.bind(timer, { gameOn : false })
+  , 60000)
   return true;
 }
 
 export let formatTime = (timeInMs) => parseFloat(timeInMs / 1000)
+
+export let percentTimeLeft = (time) => (60000 - time) / 60000.0
