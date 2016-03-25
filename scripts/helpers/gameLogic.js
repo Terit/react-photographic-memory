@@ -1,7 +1,6 @@
 let mouseClicks = null;
 let matches = null;
 let clickedCards = [];
-import * as timers from './timeHelpers';
 
 export let shuffle = (array) => {
   let m = array.length, t, i;
@@ -28,8 +27,8 @@ export let shouldFlip = (currentCard) => {
     // If there are less than 3 clicks, no cheating
     if(mouseClicks < 3) {
       // The card is now clicked and added to the clickedCards array
-      isClickedFn(currentCard)
-        .then(moreLogicFn)
+      isClicked(currentCard)
+        .then(isMatch)
         .then(resetMatches)
         .catch(e => '')
     }
@@ -37,15 +36,16 @@ export let shouldFlip = (currentCard) => {
   return true;
 };
 
-let isClickedFn = (card) => new Promise((resolve, reject) => {
+let isClicked = (card) => new Promise((resolve, reject) => {
   card.setState({
     isClicked : true
   });
   clickedCards.push(card);
-  resolve(clickedCards)
+  setTimeout(() => { resolve(clickedCards) }, 1500)
+
 });
 
-let moreLogicFn = (cards) => new Promise((resolve, reject) => {
+let isMatch = (cards) => new Promise((resolve, reject) => {
   // // If there are 2 cards, we can see if it's a match
   if(cards.length === 2) {
     // Check if the cards are a match
