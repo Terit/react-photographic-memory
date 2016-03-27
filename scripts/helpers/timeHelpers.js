@@ -1,8 +1,11 @@
-export let runTimer = (time) => {
+let runTimer = (time) => {
   if(time > 0) {
     time -= 100;
-    document.getElementById('timer').innerText = formatTime(time);
-    setTimeout(runTimer.bind(null, time), 100);
+    let timer = document.getElementById('timer');
+    timer.innerText = formatTime(time);
+    if(timer.classList.contains('running')) {
+      setTimeout(runTimer.bind(null, time), 100);
+    }
   }
   return true;
 }
@@ -22,4 +25,4 @@ export let startTimer = (timer) => {
 
 export let formatTime = (timeInMs) => parseFloat(timeInMs / 1000)
 
-export let percentTimeLeft = (time) => (60000 - time) / 60000.0
+export let percentTimeLeft = (time) => time / 600.0

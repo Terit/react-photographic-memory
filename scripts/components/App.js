@@ -4,6 +4,7 @@ import ReactDOMServer from 'react-dom/server';
 import Header from './Header';
 import Body from './Body';
 import Modal from './Modal';
+import Timer from './Timer';
 import ProgressBar from './ProgressBar';
 
 import * as helpers from '../helpers/gameLogic';
@@ -53,7 +54,8 @@ let App = React.createClass({
     timers.startTimer(this);
     if(!this.state.gameOn) {
       this.setState({
-        gameOn : true
+        gameOn : true,
+        gameTime : 60000
       });
     }
   },
@@ -61,12 +63,17 @@ let App = React.createClass({
   gameOver : function() {
     if(helpers.matchCount === 8) {
       this.state.gameOn = false;
+      let time = document.getElementById('timer').innerText
+      time = this.state.gameTime = parseFloat(time) * 1000
       this.setState({
-        gameOn : this.state.gameOn
+        gameOn : this.state.gameOn,
+        gameTime : time
       });
-      let timeLeft = timers.percentTimeLeft(this.state.gameTime)
+      let timeLeft = timers.percentTimeLeft(time)
       document.getElementsByClassName('progress')[0]
         .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
+      document.getElementById('timer-component')
+        .outerHTML = ReactDOMServer.renderToString(<Timer gameTime={time} stopTime={true} />)
     }
     return true
   },
@@ -76,7 +83,7 @@ let App = React.createClass({
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
         <ProgressBar width={100} />
-        <Modal gameOn={this.state.gameOn} startGame={this.startGame} />
+        <Modal gameOn={this.state.gameOn} startGame={this.startGame} gameTime={this.state.gameTime} />
         <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
       </div>
     )
