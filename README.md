@@ -16,3 +16,7 @@ React version of Photographic Memory
   - Get api url
   - Deploy to heroku
   - Win?
+
+#### Extras
+
+- [ ] Adjustable timer

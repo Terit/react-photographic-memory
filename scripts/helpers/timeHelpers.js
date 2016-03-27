@@ -1,9 +1,8 @@
-export let runTimer = (timer) => {
-  if(timer.state.gameTime > 0) {
-    timer.setState({
-      gameTime : (timer.state.gameTime -= 100)
-    });
-    setTimeout(runTimer.bind(null, timer), 100);
+export let runTimer = (time) => {
+  if(time > 0) {
+    time -= 100;
+    document.getElementById('timer').innerText = formatTime(time);
+    setTimeout(runTimer.bind(null, time), 100);
   }
   return true;
 }
@@ -14,6 +13,7 @@ export let startTimer = (timer) => {
   }
   document.getElementById('css-progress-bar').style.width = '0%';
   document.getElementsByClassName('progress')[0].style.background = '#ec5840';
+  runTimer(timer.state.gameTime);
   setTimeout(
     timer.setState.bind(timer, { gameOn : false })
   , 60000)
