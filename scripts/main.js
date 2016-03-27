@@ -1,11 +1,11 @@
 // This is the React insertion point for the app
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route } from 'react-router'
 import { createHistory } from 'history';
 
 import App from './components/App';
+import Leaderboard from './components/Leaderboard';
 import NotFound from './components/NotFound';
 
 // Routes
@@ -13,6 +13,7 @@ var routes = (
   <Router history={createHistory()}>
     <Route path='/' component={App} />
     <Route path='/:tag' component={App} />
+    <Route path='/:tag/leaderboard' component={Leaderboard} />
     <Route path='*' component={NotFound} />
   </Router>
 )

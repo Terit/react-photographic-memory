@@ -1,31 +1,40 @@
 const tagURL = 'http://localhost:3002/api/images/';
+const leaderboardURL = 'http://localhost:3002/api/leaderboard/';
 
-let api = {
-  fetchCards : function(props) {
-    let url = this.getUrl(props.params.tag);
-    return fetch(url)
-            .then((response) => {
-              if (response.status !== 200) {
-                console.log('Looks like there was a problem. Status Code: ' +  response.status);
-                return;
-              }
-              return response.json().then(this.updateCards)
-            });
-  },
-
-  getUrl: (tag)=> tag ? tagURL+tag : tagURL+'popular',
-
-  updateCards : (imgs)=> {
-    let cards = [];
-    // limit the number of images to 8
-    imgs.slice(0,8).map((img, index)=> {
-      // Grab the low_resolution url and set it to the current index of cards
-      cards.push({ image: img, id: index, match: index + 8 });
-      // Duplicate the cards
-      cards.push({ image: img, id: index + 8, match: index });
-    });
-    return cards;
-  },
+export let fetchCards = (props) => {
+  let url = getUrl(props.params.tag);
+  return fetch(url)
+          .then((response) => {
+            if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' +  response.status);
+              return;
+            }
+            return response.json().then(updateCards)
+          });
 }
 
-export default api;
+let getUrl = (tag) => tag ? tagURL+tag : tagURL+'popular'
+
+let updateCards = (imgs) => {
+  let cards = [];
+  // limit the number of images to 8
+  imgs.slice(0,8).map((img, index)=> {
+    // Grab the low_resolution url and set it to the current index of cards
+    cards.push({ image: img, id: index, match: index + 8 });
+    // Duplicate the cards
+    cards.push({ image: img, id: index + 8, match: index });
+  });
+  return cards;
+}
+
+export let leaderboard = (tag) => {
+  let url = leaderboardURL + tag;
+  return fetch(url)
+          .then((response) => {
+            if (response.status !== 200) {
+              console.log('Looks like there was a problem. Status Code: ' +  response.status);
+              return;
+            }
+            return response.json();
+          });
+}

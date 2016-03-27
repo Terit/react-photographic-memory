@@ -6,9 +6,9 @@ React version of Photographic Memory
 - [x] Matching logic
 - [x] Flip animation
 - [x] Randomize tiles
-- [ ] Timer
+- [x] Timer
 - [x] Style
-- [ ] Leaderboard
+- [x] Leaderboard
 - [x] Add modal to start game
 - [ ] End game functionality
 - [ ] Deploy

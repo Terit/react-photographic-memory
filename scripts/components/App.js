@@ -8,7 +8,7 @@ import ProgressBar from './ProgressBar';
 
 import * as helpers from '../helpers/gameLogic';
 import * as timers from '../helpers/timeHelpers';
-import api from '../helpers/photographicMemoryApi';
+import {fetchCards} from '../helpers/photographicMemoryApi';
 
 let App = React.createClass({
   getInitialState : function() {
@@ -38,7 +38,7 @@ let App = React.createClass({
   },
 
   resetCards : function(props) {
-    api.fetchCards(props)
+    fetchCards(props)
       .then((cards) => {
         this.setState({
           cards : cards,
