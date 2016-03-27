@@ -69,11 +69,13 @@ let App = React.createClass({
         gameOn : this.state.gameOn,
         gameTime : time
       });
-      let timeLeft = timers.percentTimeLeft(time)
-      document.getElementsByClassName('progress')[0]
-        .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
-      document.getElementById('timer-component')
-        .outerHTML = ReactDOMServer.renderToString(<Timer gameTime={time} stopTime={true} />)
+      // Do I need to replace the progress bar component here and not use props
+      //  or do I need to replace the progress bar in a new function newGame??
+
+      // let timeLeft = timers.percentTimeLeft(time)
+      // document.getElementsByClassName('progress')[0]
+        // .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
+      document.getElementById('timer').className = ''
     }
     return true
   },
@@ -82,7 +84,7 @@ let App = React.createClass({
     return (
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
-        <ProgressBar width={100} />
+        <ProgressBar width={timers.percentTimeLeft(this.state.gameTime)} />
         <Modal gameOn={this.state.gameOn} startGame={this.startGame} gameTime={this.state.gameTime} />
         <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
       </div>
