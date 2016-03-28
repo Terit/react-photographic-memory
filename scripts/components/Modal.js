@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {saveScore} from '../helpers/photographicMemoryApi';
+import { saveScore } from '../helpers/photographicMemoryApi';
 
 let Modal = React.createClass({
   submitScore : function(event) {
@@ -9,7 +9,7 @@ let Modal = React.createClass({
     let tag = this.props.tag;
     let score = this.props.gameTime;
     saveScore(name, tag, score)
-      .then(() => this.refs.reset())
+      .then(() => this.refs.reset());
     return true;
   },
 
@@ -51,8 +51,8 @@ let Modal = React.createClass({
   render : function() {
     return (
       (!this.props.gameOn && (this.props.gameTime < 60000)) ? this.renderEnd() : this.renderStart()
-    )
-  }
+    );
+  },
 });
 
 export default Modal;

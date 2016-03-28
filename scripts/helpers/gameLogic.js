@@ -1,9 +1,8 @@
 let mouseClicks = null;
-let matches = null;
 let clickedCards = [];
 export let matchCount = 0;
 
-export let shuffle = (array) => {
+export const shuffle = (array) => {
   let m = array.length, t, i;
 
   // While there remain elements to shuffle…
@@ -19,41 +18,34 @@ export let shuffle = (array) => {
   return array;
 };
 
-export let shouldFlip = (currentCard) => {
-  // if card is not Clicked and is not Matched
-  if(!currentCard.state.isClicked && !currentCard.state.isMatched) {
-  // Flip the card
-    // Count the click
-    mouseClicks ++;
-    // If there are less than 3 clicks, no cheating
-    if(mouseClicks < 3) {
-      // The card is now clicked and added to the clickedCards array
-      isClicked(currentCard)
-        .then(isMatch)
-        .then(resetMatches)
-        .catch(e => '')
-        .then(currentCard.props.gameOver)
-    }
-  }
-  return true;
-};
-
-let isClicked = (card) => new Promise((resolve, reject) => {
+const isClicked = (card) => new Promise((resolve) => {
   card.setState({
-    isClicked : true
+    isClicked: true,
   });
   clickedCards.push(card);
-  setTimeout(() => { resolve(clickedCards) }, 1500)
-
+  setTimeout(() => { resolve(clickedCards); }, 1500);
 });
 
-let isMatch = (cards) => new Promise((resolve, reject) => {
+export const resetMatches = () => {
+  mouseClicks = 0;
+  clickedCards = [];
+};
+
+export const updateCard = (value, card) => {
+  card.setState({
+    isMatched: value,
+    isClicked: value,
+  });
+  return card;
+};
+
+const isMatch = (cards) => new Promise((resolve, reject) => {
   // // If there are 2 cards, we can see if it's a match
-  if(cards.length === 2) {
+  if (cards.length === 2) {
     // Check if the cards are a match
-    let value = cards[0].props.number === cards[1].props.match ? true : false;
+    const value = cards[0].props.number === cards[1].props.match;
     // Updated # of matches
-    if(value) matchCount += 1;
+    if (value) matchCount += 1;
 
     // Update the state for the matches
     cards.map(updateCard.bind(null, value));
@@ -62,18 +54,25 @@ let isMatch = (cards) => new Promise((resolve, reject) => {
     // resetMatches();
     return resolve(true);
   }
-  reject();
+  return reject();
 });
 
-export let updateCard = (value, card) => {
-  card.setState({
-    isMatched : value,
-    isClicked : value
-  });
-  return card;
+export const shouldFlip = (currentCard) => {
+  // if card is not Clicked and is not Matched
+  if (!currentCard.state.isClicked && !currentCard.state.isMatched) {
+  // Flip the card
+    // Count the click
+    mouseClicks ++;
+    // If there are less than 3 clicks, no cheating
+    if (mouseClicks < 3) {
+      // The card is now clicked and added to the clickedCards array
+      isClicked(currentCard)
+        .then(isMatch)
+        .then(resetMatches)
+        .catch(e => `There was an error: ${e}`)
+        .then(currentCard.props.gameOver);
+    }
+  }
+  return true;
 };
 
-export let resetMatches = () => {
-  mouseClicks = 0;
-  clickedCards = [];
-};

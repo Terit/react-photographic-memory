@@ -4,19 +4,18 @@ import ReactDOMServer from 'react-dom/server';
 import Header from './Header';
 import Body from './Body';
 import Modal from './Modal';
-import Timer from './Timer';
 import ProgressBar from './ProgressBar';
 
 import * as helpers from '../helpers/gameLogic';
 import * as timers from '../helpers/timeHelpers';
-import {fetchCards} from '../helpers/photographicMemoryApi';
+import { fetchCards } from '../helpers/photographicMemoryApi';
 
-let App = React.createClass({
+const App = React.createClass({
   getInitialState : function() {
     return {
       cards: {},
       gameTime: 60000,
-      gameOn: false
+      gameOn: false,
     };
   },
 
@@ -42,9 +41,9 @@ let App = React.createClass({
     fetchCards(props)
       .then((cards) => {
         this.setState({
-          cards : cards,
+          cards: cards,
           gameTime: 60000,
-          gameOn: false
+          gameOn: false,
         });
       })
       .then(helpers.resetMatches);
@@ -52,22 +51,22 @@ let App = React.createClass({
 
   startGame : function() {
     timers.startTimer(this);
-    if(!this.state.gameOn) {
+    if (!this.state.gameOn) {
       this.setState({
         gameOn : true,
-        gameTime : 60000
+        gameTime : 60000,
       });
     }
   },
 
   gameOver : function() {
-    if(helpers.matchCount === 8) {
+    if (helpers.matchCount === 8) {
       this.state.gameOn = false;
-      let time = document.getElementById('timer').innerText
-      time = this.state.gameTime = parseFloat(time) * 1000
+      let time = document.getElementById('timer').innerText;
+      time = parseFloat(time) * 1000;
       this.setState({
-        gameOn : this.state.gameOn,
-        gameTime : time
+        gameOn: this.state.gameOn,
+        gameTime: time,
       });
       // Do I need to replace the progress bar component here and not use props
       //  or do I need to replace the progress bar in a new function newGame??
@@ -75,21 +74,26 @@ let App = React.createClass({
       // let timeLeft = timers.percentTimeLeft(time)
       // document.getElementsByClassName('progress')[0]
         // .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
-      document.getElementById('timer').className = ''
+      document.getElementById('timer').className = '';
     }
-    return true
+    return true;
   },
 
-  render : function() {
+  render: function() {
     return (
-      <div className='row'>
+      <div className="row">
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
         <ProgressBar width={timers.percentTimeLeft(this.state.gameTime)} />
-        <Modal gameOn={this.state.gameOn} startGame={this.startGame} gameTime={this.state.gameTime} tag={this.props.params.tag} />
+        <Modal
+          gameOn={this.state.gameOn}
+          startGame={this.startGame}
+          gameTime={this.state.gameTime}
+          tag={this.props.params.tag}
+        />
         <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
       </div>
-    )
-  }
+    );
+  },
 });
 
 export default App;
