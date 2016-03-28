@@ -85,7 +85,7 @@ let App = React.createClass({
       <div className='row'>
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
         <ProgressBar width={timers.percentTimeLeft(this.state.gameTime)} />
-        <Modal gameOn={this.state.gameOn} startGame={this.startGame} gameTime={this.state.gameTime} />
+        <Modal gameOn={this.state.gameOn} startGame={this.startGame} gameTime={this.state.gameTime} tag={this.props.params.tag} />
         <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
       </div>
     )
