@@ -1,6 +1,6 @@
 const tagURL = 'http://localhost:3002/api/images/';
 const leaderboardURL = 'http://localhost:3002/api/leaderboard/';
-const saveScoreURL = 'http://localhost:3002/api/leaderboard/new/';
+const saveScoreURL = 'http://localhost:3002/api/leaderboard/new';
 
 const getUrl = (tag) => `${tagURL}${tag || 'popular'}`;
 
@@ -22,7 +22,7 @@ export const fetchCards = (props) => {
   return fetch(url)
           .then((response) => {
             if (response.status !== 200) {
-              console.log('Looks like there was a problem. Status Code: ' +  response.status);
+              console.log(`Looks like there was a problem. Status Code: ${response.status}`);
               return;
             }
             return response.json().then(updateCards);
@@ -34,7 +34,7 @@ export const leaderboard = (tag) => {
   return fetch(url)
           .then((response) => {
             if (response.status !== 200) {
-              console.log('Looks like there was a problem. Status Code: ' +  response.status);
+              console.log(`Looks like there was a problem. Status Code: ${response.status}`);
               return;
             }
             return response.json();
@@ -43,12 +43,16 @@ export const leaderboard = (tag) => {
 
 export const saveScore = (name, tag, score) => {
   // Post to API
-  return fetch(saveScoreURL, { method: 'POST', body: { tag, name, score } })
+  const data = new FormData();
+  data.append('name', name);
+  data.append('tag', tag);
+  data.append('score', score);
+  return fetch(saveScoreURL, { method: 'POST', body: data })
           .then((response) => {
             if (response.status !== 200) {
-              console.log('Looks like there was a problem. Status Code: ' +  response.status);
+              console.log(`Looks like there was a problem. Status Code: ${response.status}`);
               return;
             }
-            return response.json();
+            response.json();
           });
 };

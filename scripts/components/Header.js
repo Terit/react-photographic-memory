@@ -2,18 +2,18 @@ import React from 'react';
 import { History } from 'react-router';
 import Timer from './Timer';
 
-let Header = React.createClass({
+const Header = React.createClass({
   mixins: [History],
 
-  search : function(event) {
+  search: function (event) {
     event.preventDefault();
-    let searchTag = this.refs.searchTag.value;
-    this.history.pushState(null, '/' + searchTag);
+    const searchTag = this.refs.searchTag.value;
+    this.history.pushState(null, `/${searchTag}`);
     this.refs.tagSearch.reset();
   },
 
-  render : function() {
-    return(
+  render: function () {
+    return (
       <div className="top-bar">
         <div className="top-bar-left">
           <ul className="menu">
@@ -23,16 +23,16 @@ let Header = React.createClass({
           </ul>
         </div>
         <div className="top-bar-right">
-          <form ref='tagSearch' onSubmit={this.search}>
+          <form ref="tagSearch" onSubmit={this.search}>
             <ul className="menu">
-              <li><input type="search" placeholder="Search" ref='searchTag' /></li>
+              <li><input type="search" placeholder="Search" ref="searchTag" /></li>
               <li><button type="submit" className="button">Search</button></li>
             </ul>
           </form>
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default Header;
