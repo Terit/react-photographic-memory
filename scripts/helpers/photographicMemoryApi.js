@@ -1,7 +1,7 @@
-const tagURL = 'http://localhost:3002/api/images/';
-const leaderboardURL = 'http://localhost:3002/api/leaderboard/';
-const saveScoreURL = 'http://localhost:3002/api/leaderboard/new';
-
+const baseURL = 'http://photographicmemory-api.herokuapp.com/';
+const tagURL = `${baseURL}/api/images/`;
+const leaderboardURL = `${baseURL}/api/leaderboard/`;
+const saveScoreURL = `${baseURL}/api/leaderboard/new`;
 const getUrl = (tag) => `${tagURL}${tag || 'popular'}`;
 
 const updateCards = (imgs) => {
