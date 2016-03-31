@@ -3,6 +3,11 @@ import { History } from 'react-router';
 import Timer from './Timer';
 
 const Header = React.createClass({
+  propTypes: {
+    tag: React.PropTypes.string,
+    gameTime: React.PropTypes.number.isRequired,
+  },
+
   mixins: [History],
 
   search: function (event) {
@@ -19,7 +24,7 @@ const Header = React.createClass({
           <ul className="menu">
             <li className="menu-text">Photographic Memory</li>
             <li className='menu-text'>#{this.props.tag || 'popular'}</li>
-            <Timer gameTime={this.props.gameTime} stopTime={false} />
+            <Timer gameTime={this.props.gameTime} />
           </ul>
         </div>
         <div className="top-bar-right">

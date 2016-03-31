@@ -1,4 +1,4 @@
-#css-progress-bar {
+.css-progress-bar {
   background-color: #18bc9c;
   width: 100%;
   transition: width 60s linear;

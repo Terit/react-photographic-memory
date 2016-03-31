@@ -11,7 +11,7 @@ import * as timers from '../helpers/timeHelpers';
 import { fetchCards } from '../helpers/photographicMemoryApi';
 
 const App = React.createClass({
-  getInitialState : function() {
+  getInitialState: function () {
     return {
       cards: {},
       gameTime: 60000,
@@ -19,29 +19,31 @@ const App = React.createClass({
     };
   },
 
-  componentDidMount : function() {
+  componentDidMount: function () {
     this.resetCards(this.props);
   },
 
-  componentWillReceiveProps : function(nextProps) {
+  componentWillReceiveProps: function (nextProps) {
     this.resetGame(nextProps);
     return nextProps;
   },
 
-  resetGame : function(props) {
+  resetGame: function (props) {
     this.state.gameOn = false;
     this.state.gameTime = 60000;
     helpers.matchCount = 0;
-    this.resetCards(props);
     document.getElementsByClassName('progress')[0]
-      .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={100} />)
+      .outerHTML = "<span id='replace'></span>";
+    this.resetCards(props);
+    document.getElementById('replace')
+      .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={100} />);
   },
 
-  resetCards : function(props) {
+  resetCards: function (props) {
     fetchCards(props)
       .then((cards) => {
         this.setState({
-          cards: cards,
+          cards,
           gameTime: 60000,
           gameOn: false,
         });
@@ -49,17 +51,17 @@ const App = React.createClass({
       .then(helpers.resetMatches);
   },
 
-  startGame : function() {
+  startGame: function () {
     timers.startTimer(this);
     if (!this.state.gameOn) {
       this.setState({
-        gameOn : true,
-        gameTime : 60000,
+        gameOn: true,
+        gameTime: 60000,
       });
     }
   },
 
-  gameOver : function() {
+  gameOver: function () {
     if (helpers.matchCount === 8) {
       this.state.gameOn = false;
       let time = document.getElementById('timer').innerText;
@@ -73,13 +75,14 @@ const App = React.createClass({
 
       // let timeLeft = timers.percentTimeLeft(time)
       // document.getElementsByClassName('progress')[0]
-        // .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
+      //   .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
       document.getElementById('timer').className = '';
+      helpers.matchCount = 0;
     }
     return true;
   },
 
-  render: function() {
+  render: function () {
     return (
       <div className="row">
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
