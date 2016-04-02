@@ -16,7 +16,6 @@ var reload = browserSync.reload;
 var historyApiFallback = require('connect-history-api-fallback')
 
 var connect = require('gulp-connect');
-var env = require('gulp-env');
 
 /*
   Styles Task
