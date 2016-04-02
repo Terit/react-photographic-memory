@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { History } from 'react-router';
-import Timer from './Timer';
+import reactMixin from 'react-mixin';
+import autobind from 'autobind-decorator';
 
-const Header = React.createClass({
-  propTypes: {
-    tag: React.PropTypes.string,
-    gameTime: React.PropTypes.number.isRequired,
-  },
+const propTypes = {
+  tag: React.PropTypes.string,
+  gameTime: React.PropTypes.number,
+};
 
-  mixins: [History],
-
-  search: function (event) {
+class Header extends React.Component {
+  @autobind
+  search(event) {
     event.preventDefault();
     const searchTag = this.refs.searchTag.value;
     this.history.pushState(null, `/${searchTag}`);
     this.refs.tagSearch.reset();
-  },
+  }
 
-  render: function () {
+  render() {
+    // const timer = this.props.gameTime ? <Timer gameTime={this.props.gameTime} /> : '';
     return (
       <div className="top-bar">
         <div className="top-bar-left">
           <ul className="menu">
             <li className="menu-text">Photographic Memory</li>
-            <li className='menu-text'>#{this.props.tag || 'popular'}</li>
-            <Timer gameTime={this.props.gameTime} />
+            <li className="menu-text">#{this.props.tag || 'popular'}</li>
+            {this.props.children}
           </ul>
         </div>
         <div className="top-bar-right">
@@ -37,7 +38,11 @@ const Header = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+}
+
+reactMixin.onClass(Header, History);
+
+Header.propTypes = propTypes;
 
 export default Header;

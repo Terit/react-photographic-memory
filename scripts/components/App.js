@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import ReactDOMServer from 'react-dom/server';
+import autobind from 'autobind-decorator';
 
 import Header from './Header';
+import Timer from './Timer';
 import Body from './Body';
 import Modal from './Modal';
 import ProgressBar from './ProgressBar';
@@ -10,25 +12,31 @@ import * as helpers from '../helpers/gameLogic';
 import * as timers from '../helpers/timeHelpers';
 import { fetchCards } from '../helpers/photographicMemoryApi';
 
-const App = React.createClass({
-  getInitialState: function () {
-    return {
-      cards: {},
+const propTypes = {
+  params: PropTypes.object,
+};
+
+@autobind
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cards: [],
       gameTime: 60000,
       gameOn: false,
     };
-  },
+  }
 
-  componentDidMount: function () {
+  componentDidMount() {
     this.resetCards(this.props);
-  },
+  }
 
-  componentWillReceiveProps: function (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.resetGame(nextProps);
     return nextProps;
-  },
+  }
 
-  resetGame: function (props) {
+  resetGame(props) {
     this.state.gameOn = false;
     this.state.gameTime = 60000;
     helpers.matchCount = 0;
@@ -37,9 +45,9 @@ const App = React.createClass({
     this.resetCards(props);
     document.getElementById('replace')
       .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={100} />);
-  },
+  }
 
-  resetCards: function (props) {
+  resetCards(props) {
     fetchCards(props)
       .then((cards) => {
         this.setState({
@@ -49,9 +57,9 @@ const App = React.createClass({
         });
       })
       .then(helpers.resetMatches);
-  },
+  }
 
-  startGame: function () {
+  startGame() {
     timers.startTimer(this);
     if (!this.state.gameOn) {
       this.setState({
@@ -59,9 +67,9 @@ const App = React.createClass({
         gameTime: 60000,
       });
     }
-  },
+  }
 
-  gameOver: function () {
+  gameOver() {
     if (helpers.matchCount === 8) {
       this.state.gameOn = false;
       let time = document.getElementById('timer').innerText;
@@ -80,12 +88,14 @@ const App = React.createClass({
       helpers.matchCount = 0;
     }
     return true;
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       <div className="row">
-        <Header tag={this.props.params.tag} gameTime={this.state.gameTime} />
+        <Header tag={this.props.params.tag} gameTime={this.state.gameTime}>
+          <Timer gameTime={this.state.gameTime} />
+        </Header>
         <ProgressBar width={timers.percentTimeLeft(this.state.gameTime)} />
         <Modal
           gameOn={this.state.gameOn}
@@ -93,10 +103,12 @@ const App = React.createClass({
           gameTime={this.state.gameTime}
           tag={this.props.params.tag}
         />
-        <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
+        <Body cards={helpers.shuffle(this.state.cards)} />
       </div>
     );
-  },
-});
+  }
+}
+
+App.propTypes = propTypes;
 
 export default App;

@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import autobind from 'autobind-decorator';
 
 import { saveScore } from '../helpers/photographicMemoryApi';
 
-const Modal = React.createClass({
-  submitScore: function (event) {
+const propTypes = {
+  tag: PropTypes.string,
+  startGame: PropTypes.func.isRequired,
+};
+
+@autobind
+class Modal extends React.Component {
+  submitScore(event) {
     event.preventDefault();
     const name = this.refs.name.value;
     const tag = this.props.tag;
@@ -11,9 +18,9 @@ const Modal = React.createClass({
     saveScore(name, tag, score)
       .then(() => this.refs.scoreForm.reset());
     return true;
-  },
+  }
 
-  renderEnd: function () {
+  renderEnd() {
     return (
       <div className="modal large-11 small-12 columns">
         <div className="row">
@@ -32,9 +39,9 @@ const Modal = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-  renderStart: function () {
+  renderStart() {
     return (
       <div className={`modal large-11 small-12 columns ${this.props.gameOn ? 'hide' : ''}`}>
         <div className="row">
@@ -46,13 +53,15 @@ const Modal = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
-  render: function () {
+  render() {
     return (
       (!this.props.gameOn && (this.props.gameTime < 60000)) ? this.renderEnd() : this.renderStart()
     );
-  },
-});
+  }
+}
+
+Modal.propTypes = propTypes;
 
 export default Modal;

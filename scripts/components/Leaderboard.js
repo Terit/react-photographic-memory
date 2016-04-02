@@ -1,27 +1,34 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import autobind from 'autobind-decorator';
 
 import Header from './Header';
 import Leader from './Leader';
 
-import {leaderboard} from '../helpers/photographicMemoryApi';
+import { leaderboard } from '../helpers/photographicMemoryApi';
 
-let Leaderboard = React.createClass({
-  getInitialState : function() {
-    return {
-      leaderboard: {}
+const propTypes = {
+  params: PropTypes.object.isRequired,
+};
+
+class Leaderboard extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      leaderboard: {},
     };
-  },
+  }
 
-  componentDidMount : function () {
+  componentDidMount() {
     leaderboard(this.props.params.tag)
       .then((leaders) => {
         this.setState({
-          leaderboard : leaders
-        })
+          leaderboard: leaders,
+        });
       });
-  },
+  }
 
-  renderScores : function(key) {
+  @autobind
+  renderScores(key) {
     const leader = this.state.leaderboard[key];
     return (
       <Leader
@@ -31,28 +38,32 @@ let Leaderboard = React.createClass({
         name={leader.name}
         hashtag={leader.hashtag}
       />
-    )
-  },
+    );
+  }
 
-  render : function() {
-    let scores = Object.keys(this.state.leaderboard);
+  render() {
+    const scores = Object.keys(this.state.leaderboard);
     return (
-      <div className='row'>
+      <div className="row">
         <Header tag={'Leaders'} />
         <table>
           <thead>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Hashtag</th>
-            <th>Score</th>
+            <tr>
+              <th>Rank</th>
+              <th>Name</th>
+              <th>Hashtag</th>
+              <th>Score</th>
+            </tr>
           </thead>
           <tbody>
             {scores.map(this.renderScores)}
           </tbody>
         </table>
       </div>
-    )
+    );
   }
-});
+}
+
+Leaderboard.propTypes = propTypes;
 
 export default Leaderboard;

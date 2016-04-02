@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const propTypes = {
-  width: PropTypes.number.isRequired,
-};
-
-export default function ProgressBar({width}) {
+export default function ProgressBar({ width }) {
   return (
     <div className="progress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
       <div
@@ -12,8 +8,10 @@ export default function ProgressBar({width}) {
         className="progress-meter css-progress-bar"
         style={ { width: `${width}%` } }
       />
-
     </div>
   );
 }
 
+ProgressBar.propTypes = {
+  width: PropTypes.number.isRequired,
+};

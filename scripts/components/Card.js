@@ -1,41 +1,54 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import * as helpers from '../helpers/gameLogic';
-import * as timeHelpers from '../helpers/timeHelpers';
 
-let Card = React.createClass({
-  getInitialState : () => {
-    return {
-      isClicked : false,
-      isMatched : false
+const propTypes = {
+  image: PropTypes.string.isRequired,
+};
+
+class Card extends React.Component {
+  constructor() {
+    super();
+
+    this.onClickDiv = helpers.shouldFlip.bind(null, this);
+    this.state = {
+      isClicked: false,
+      isMatched: false,
     };
-  },
+  }
 
-  componentWillReceiveProps : function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     // Check to see if the cards have been updated, ie a new game
-    if(this.props.image !== nextProps.image) {
+    if (this.props.image !== nextProps.image) {
       this.setState({
-        isClicked : false,
-        isMatched : false
+        isClicked: false,
+        isMatched: false,
       });
     }
-  },
+  }
 
-  render : function() {
-    let background = (this.state.isClicked ? 'url(' + this.props.image + ') 50% 50% / 183px 183px no-repeat' : 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat');
-    let className = this.state.isClicked ? 'clicked' : '';
-    return(
-      <div className='small-3 columns'>
+  background() {
+    if (this.state.isClicked) return `url(${this.props.image}) 50% 50% / 183px 183px no-repeat`;
+    return 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat';
+  }
+
+  render() {
+    const background = this.background();
+    const className = this.state.isClicked ? 'clicked' : '';
+    return (
+      <div className="small-3 columns">
         <div
           style={{
-            background: background,
-            height: '200px'
+            background,
+            height: '200px',
           }}
-          onClick={helpers.shouldFlip.bind(null, this)}
+          onClick={this.onClickDiv}
           className={`card ${className}`}
         ></div>
       </div>
-    )
+    );
   }
-});
+}
+
+Card.propTypes = propTypes;
 
 export default Card;

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default React.createClass({
-  render : function() {
-    return(
-      <tr>
-        <td>{this.props.rank}</td>
-        <td>{this.props.name}</td>
-        <td>{this.props.hashtag}</td>
-        <td>{this.props.score}</td>
-      </tr>
-    )
-  }
-});
+export default function Leader({ rank, name, hashtag, score }) {
+  return (
+    <tr>
+      <td>{rank}</td>
+      <td>{name}</td>
+      <td>#{hashtag}</td>
+      <td>{score}</td>
+    </tr>
+  );
+}
+
+Leader.propTypes = {
+  rank: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  hashtag: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+};
