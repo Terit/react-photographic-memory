@@ -1,4 +1,4 @@
-const baseURL = 'http://photographicmemory-api.herokuapp.com';
+const baseURL = '//photographicmemory-api.herokuapp.com';
 const tagURL = `${baseURL}/api/images/`;
 const leaderboardURL = `${baseURL}/api/leaderboard/`;
 const saveScoreURL = `${baseURL}/api/leaderboard/new`;
