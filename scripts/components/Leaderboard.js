@@ -3,6 +3,8 @@ import autobind from 'autobind-decorator';
 
 import Header from './Header';
 import Leader from './Leader';
+import Timer from './Timer';
+import TagForm from './TagForm';
 
 import { leaderboard } from '../helpers/photographicMemoryApi';
 
@@ -45,7 +47,10 @@ class Leaderboard extends React.Component {
     const scores = Object.keys(this.state.leaderboard);
     return (
       <div className="row">
-        <Header tag={'Leaders'} />
+        <Header tag={'Leaders'}>
+          <span></span>
+          <TagForm />
+        </Header>
         <table>
           <thead>
             <tr>

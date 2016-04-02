@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import * as helpers from '../helpers/gameLogic';
+import { shouldFlip } from '../helpers/gameLogic';
 
 const propTypes = {
   image: PropTypes.string.isRequired,
@@ -11,7 +11,7 @@ class Card extends React.Component {
   constructor() {
     super();
 
-    this.onClickDiv = helpers.shouldFlip.bind(null, this);
+    this.onClickDiv = shouldFlip.bind(null, this);
     this.state = {
       isClicked: false,
       isMatched: false,
@@ -28,23 +28,30 @@ class Card extends React.Component {
     }
   }
 
-  background() {
-    if (this.state.isClicked) return `url(${this.props.image}) 50% 50% / 183px 183px no-repeat`;
-    return 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat';
+  styles() {
+    if (this.state.isClicked) {
+      return {
+        background: `url(${this.props.image}) 50% 50% / 183px 183px no-repeat`,
+        className: 'clicked',
+      };
+    }
+    return {
+      background: 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat',
+      className: '',
+    };
   }
 
   render() {
-    const background = this.background();
-    const className = this.state.isClicked ? 'clicked' : '';
+    const styles = this.styles();
     return (
       <div className="small-3 columns">
         <div
           style={{
-            background,
+            background: styles.background,
             height: '200px',
           }}
           onClick={this.onClickDiv}
-          className={`card ${className}`}
+          className={`card ${styles.className}`}
         ></div>
       </div>
     );

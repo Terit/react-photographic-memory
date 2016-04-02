@@ -1,47 +1,26 @@
 import React, { PropTypes } from 'react';
-import { History, Link } from 'react-router';
-import reactMixin from 'react-mixin';
-import autobind from 'autobind-decorator';
+import { Link } from 'react-router';
 
 const propTypes = {
-  tag: React.PropTypes.string,
-  gameTime: React.PropTypes.number,
+  tag: PropTypes.string.isRequired,
+  children: PropTypes.array,
 };
 
-class Header extends React.Component {
-  @autobind
-  search(event) {
-    event.preventDefault();
-    const searchTag = this.refs.searchTag.value;
-    this.history.pushState(null, `/${searchTag}`);
-    this.refs.tagSearch.reset();
-  }
-
-  render() {
-    return (
-      <div className="top-bar">
-        <div className="top-bar-left">
-          <ul className="menu">
-            <li><Link to="/">Photographic Memory</Link></li>
-            <li className="menu-text">#{this.props.tag || 'popular'}</li>
-            {this.props.children}
-          </ul>
-        </div>
-        <div className="top-bar-right">
-          <form ref="tagSearch" onSubmit={this.search}>
-            <ul className="menu">
-              <li><input type="search" placeholder="Search" ref="searchTag" /></li>
-              <li><button type="submit" className="button">Search</button></li>
-            </ul>
-          </form>
-        </div>
+export default function Header({ children, tag }) {
+  return (
+    <div className="top-bar">
+      <div className="top-bar-left">
+        <ul className="menu">
+          <li><Link to="/">Photographic Memory</Link></li>
+          <li className="menu-text">#{tag}</li>
+          {children[0]}
+        </ul>
       </div>
-    );
-  }
+      <div className="top-bar-right">
+        {children[1]}
+      </div>
+    </div>
+  );
 }
 
-reactMixin.onClass(Header, History);
-
 Header.propTypes = propTypes;
-
-export default Header;

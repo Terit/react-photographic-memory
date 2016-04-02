@@ -9,6 +9,7 @@ const propTypes = {
   startGame: PropTypes.func.isRequired,
   tag: PropTypes.string.isRequired,
   gameTime: PropTypes.number.isRequired,
+  children: PropTypes.object.isRequired,
 };
 
 class EndModal extends React.Component {
@@ -19,7 +20,7 @@ class EndModal extends React.Component {
     const tag = this.props.tag;
     const score = this.props.gameTime;
     saveScore(name, tag, score)
-      .then(() => this.history.pushState(null, `/${this.props.tag || 'popular'}/leaderboard`));
+      .then(() => this.history.pushState(null, `/${this.props.tag}/leaderboard`));
     this.refs.scoreForm.reset();
   }
 
@@ -37,8 +38,10 @@ class EndModal extends React.Component {
           </div>
         </form>
 
+        {this.props.children}
+
         <button onClick={this.props.startGame} className="button large expanded">
-          New Game
+          Replay Game
         </button>
       </div>
     );
