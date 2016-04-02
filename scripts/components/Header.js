@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { History } from 'react-router';
+import { History, Link } from 'react-router';
 import reactMixin from 'react-mixin';
 import autobind from 'autobind-decorator';
 
@@ -18,12 +18,11 @@ class Header extends React.Component {
   }
 
   render() {
-    // const timer = this.props.gameTime ? <Timer gameTime={this.props.gameTime} /> : '';
     return (
       <div className="top-bar">
         <div className="top-bar-left">
           <ul className="menu">
-            <li className="menu-text">Photographic Memory</li>
+            <li><Link to="/">Photographic Memory</Link></li>
             <li className="menu-text">#{this.props.tag || 'popular'}</li>
             {this.props.children}
           </ul>

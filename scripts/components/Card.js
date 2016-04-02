@@ -3,6 +3,8 @@ import * as helpers from '../helpers/gameLogic';
 
 const propTypes = {
   image: PropTypes.string.isRequired,
+  gameOver: PropTypes.func.isRequired,
+  number: PropTypes.number.isRequired,
 };
 
 class Card extends React.Component {

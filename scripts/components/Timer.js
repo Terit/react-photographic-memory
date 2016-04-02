@@ -17,18 +17,11 @@ class Timer extends React.Component {
     this.state.gameTime = this.props.gameTime;
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.state.gameTime = nextProps.gameTime;
-    this.setState({
-      gameTime: this.state.gameTime,
-    });
-  }
-
   render() {
     if (this.state.gameTime) {
       return (
         <li id="timer-component" className="menu-text">
-          Timer: <span id="timer" className="running">{formatTime(this.state.gameTime)}</span>
+          Timer: <span id="timer">{formatTime(this.state.gameTime)}</span>
         </li>
       );
     }

@@ -6,6 +6,8 @@ import Header from './Header';
 import Timer from './Timer';
 import Body from './Body';
 import Modal from './Modal';
+import StartModal from './StartModal';
+import EndModal from './EndModal';
 import ProgressBar from './ProgressBar';
 
 import * as helpers from '../helpers/gameLogic';
@@ -24,6 +26,7 @@ class App extends React.Component {
       cards: [],
       gameTime: 60000,
       gameOn: false,
+      width: 100,
     };
   }
 
@@ -40,11 +43,7 @@ class App extends React.Component {
     this.state.gameOn = false;
     this.state.gameTime = 60000;
     helpers.matchCount = 0;
-    document.getElementsByClassName('progress')[0]
-      .outerHTML = "<span id='replace'></span>";
     this.resetCards(props);
-    document.getElementById('replace')
-      .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={100} />);
   }
 
   resetCards(props) {
@@ -54,40 +53,49 @@ class App extends React.Component {
           cards,
           gameTime: 60000,
           gameOn: false,
+          width: 100,
         });
       })
-      .then(helpers.resetMatches);
+      .then(helpers.resetMatches)
+      .then(() => {
+        document.getElementById('timer').className = '';
+        document.getElementById('css-progress-bar').className = 'progress-meter';
+        document.getElementById('progress').className = 'progress';
+      });
   }
 
   startGame() {
+    this.setState({
+      gameOn: true,
+      gameTime: 60000,
+      width: 0,
+    });
     timers.startTimer(this);
-    if (!this.state.gameOn) {
-      this.setState({
-        gameOn: true,
-        gameTime: 60000,
-      });
-    }
   }
 
   gameOver() {
     if (helpers.matchCount === 8) {
-      this.state.gameOn = false;
       let time = document.getElementById('timer').innerText;
       time = parseFloat(time) * 1000;
+      this.state.gameOn = false;
       this.setState({
         gameOn: this.state.gameOn,
         gameTime: time,
       });
-      // Do I need to replace the progress bar component here and not use props
-      //  or do I need to replace the progress bar in a new function newGame??
-
-      // let timeLeft = timers.percentTimeLeft(time)
-      // document.getElementsByClassName('progress')[0]
-      //   .outerHTML = ReactDOMServer.renderToString(<ProgressBar width={timeLeft} />)
-      document.getElementById('timer').className = '';
       helpers.matchCount = 0;
     }
     return true;
+  }
+
+  modal() {
+    if (!this.state.gameOn && (this.state.gameTime < 60000)) {
+      return <EndModal
+              startGame={this.startGame}
+              gameTime={this.state.gameTime}
+              tag={this.props.params.tag}
+             />;
+    }
+    return <StartModal startGame={this.startGame} />;
   }
 
   render() {
@@ -96,14 +104,11 @@ class App extends React.Component {
         <Header tag={this.props.params.tag} gameTime={this.state.gameTime}>
           <Timer gameTime={this.state.gameTime} />
         </Header>
-        <ProgressBar width={timers.percentTimeLeft(this.state.gameTime)} />
-        <Modal
-          gameOn={this.state.gameOn}
-          startGame={this.startGame}
-          gameTime={this.state.gameTime}
-          tag={this.props.params.tag}
-        />
-        <Body cards={helpers.shuffle(this.state.cards)} />
+        <ProgressBar width={this.state.width} />
+        <Modal gameOn={this.state.gameOn}>
+          {this.modal()}
+        </Modal>
+        <Body cards={helpers.shuffle(this.state.cards)} gameOver={this.gameOver} />
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 export default function ProgressBar({ width }) {
   return (
-    <div className="progress" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+    <div id="progress" className="progress">
       <div
         id="css-progress-bar"
         className="progress-meter css-progress-bar"

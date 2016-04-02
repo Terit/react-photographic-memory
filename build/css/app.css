@@ -1,11 +1,18 @@
-.css-progress-bar {
-  background-color: #18bc9c;
+#css-progress-bar.transition {
   width: 100%;
   transition: width 60s linear;
 }
 
-.progress {
+.progress-meter {
+  background-color: #18bc9c;
+}
+
+#progress {
   background-color: #FFAE00;
+}
+
+#progress.transition {
+  background-color: #ec5840;
   transition: all 45s linear;
 }
 
@@ -13,11 +20,6 @@
   transition: 0.6s;
   webkit-transform-style: webkit-preserve-3d;
   transform-style: preserve-3d;
-}
-
-.card .isFlipped {
-  webkit-transform: webkit-rotateY(180deg);
-  transform: rotateY(180deg);
 }
 
 .modal {
@@ -28,14 +30,16 @@
   border-radius: 5px;
 }
 
-#buttons {
+.buttons {
   height: 400px;
 }
 
-#buttons > button {
+.buttons > button {
   position: relative;
-  top: 50%;
-  left: 50%;
-  margin-left: -82.25px;
+  top: 70%;
   margin-top: 30px;
+}
+
+#score-form {
+  margin-top: 115px;
 }
