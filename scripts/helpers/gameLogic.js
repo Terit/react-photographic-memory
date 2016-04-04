@@ -44,6 +44,7 @@ const isMatch = (cards) => new Promise((resolve, reject) => {
 export const matchCount = () => matchCountVar;
 
 export const resetMatches = () => {
+  matchCountVar = 0;
   resetCards();
 };
 

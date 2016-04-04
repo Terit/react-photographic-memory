@@ -31,12 +31,12 @@ class Card extends React.Component {
   styles() {
     if (this.state.isClicked) {
       return {
-        background: `url(${this.props.image}) 50% 50% / 183px 183px no-repeat`,
+        background: `url(${this.props.image}) 50% 50% / 160px 160px no-repeat`,
         className: 'clicked',
       };
     }
     return {
-      background: 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 200px 200px no-repeat',
+      background: 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 180px 180px no-repeat',
       className: '',
     };
   }
