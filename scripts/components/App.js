@@ -30,24 +30,24 @@ class App extends React.Component {
     };
   }
 
+  // Reset the game using the current params, aka the props
+  // This ensures the game starts fresh when the page loads
   componentDidMount() {
-    this.resetCards(this.props);
+    this.resetGame(this.props);
   }
 
+  // New props come in, reset the the state to it's original state
+  // Pass the new params to reset game which will fetch new cards
   componentWillReceiveProps(nextProps) {
     this.resetGame(nextProps);
     return nextProps;
   }
 
   resetGame(props) {
-    this.state.gameOn = false;
-    this.state.gameTime = 60000;
-    this.resetCards(props);
-  }
-
-  resetCards(props) {
+    // Pass the props object into fetchCards api call because params might be empty
+    // and it's easier to handle this way.
     fetchCards(props)
-      .then((cards) => {
+      .then((cards) => { // After getting the cards, update the state
         this.setState({
           cards,
           gameTime: 60000,
@@ -55,27 +55,44 @@ class App extends React.Component {
           width: 100,
         });
       })
-      .then(resetMatches)
-      .then(cssStopGame);
+      .then(resetMatches) // Also make sure to reset the Match count
+      .then(cssStopGame); // Finally change the css styles to allow for fast transitions
   }
 
+  // Begin a new game, this function is passed into each Modal
   startGame() {
     this.setState({
       gameOn: true,
       gameTime: 60000,
       width: 0,
     });
+
+    // Apply css styles to allow for slow transitions and the timer to work
     cssStartGame()
-      .then(runTimer(this.state.gameTime))
-      .then(() => {
+      .then(runTimer(this.state.gameTime)) // Pass the gameTime into the timer to countdown
+      .then(() => { // Set a timer to check if the player has made all the matches when the timer hits 0sec
         setTimeout(
-          this.setState.bind(this, { gameOn: false }),
+          this.timeGameOver.bind(this),
           this.state.gameTime
         )
       });
   }
 
-  gameOver() {
+  // Checks the timer gameTime seconds after the game has started to see if the player loses
+  timeGameOver() {
+    let time = document.getElementById('timer').innerText;
+    time = parseInt(time) * 1000;
+    if (time === 0) {
+      this.state.gameOn = false;
+      this.setState({
+        gameOn: this.state.gameOn
+      });
+    }
+  }
+
+  // Callback function passed to Cards through the Body component, this is called
+  // after all other logic is done on Card.onClick
+  isGameOver() {
     if (matchCount() === 8) {
       cssStopGame();
       let time = document.getElementById('timer').innerText;
@@ -90,11 +107,23 @@ class App extends React.Component {
     return true;
   }
 
-  modal() {
+  // Use the same cards and reset the game to original state
+  replayGame() {
+      this.setState({
+        gameTime: 60000,
+        gameOn: false,
+        width: 100,
+      });
+      resetMatches(); // Also make sure to reset the Match count
+      cssStopGame(); // Finally change the css styles to allow for fast transitions
+  }
+
+  // Decides which modal to render when the gameOn state is false
+  renderModal() {
     if (!this.state.gameOn && (this.state.gameTime < 60000)) {
       return (
         <EndModal
-          startGame={this.startGame}
+          replayGame={this.replayGame}
           gameTime={this.state.gameTime}
           tag={this.props.params.tag || 'popular'}
         >
@@ -114,9 +143,9 @@ class App extends React.Component {
         </Header>
         <ProgressBar width={this.state.width} />
         <Modal gameOn={this.state.gameOn}>
-          {this.modal()}
+          {this.renderModal()}
         </Modal>
-        <Body cards={shuffle(this.state.cards)} gameOver={this.gameOver} />
+        <Body cards={shuffle(this.state.cards)} isGameOver={this.isGameOver} />
       </div>
     );
   }

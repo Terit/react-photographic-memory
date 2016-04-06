@@ -5,8 +5,10 @@ import autobind from 'autobind-decorator';
 
 import { saveScore } from '../helpers/photographicMemoryApi';
 
+import Hr from './Hr';
+
 const propTypes = {
-  startGame: PropTypes.func.isRequired,
+  replayGame: PropTypes.func.isRequired,
   tag: PropTypes.string.isRequired,
   gameTime: PropTypes.number.isRequired,
   children: PropTypes.object.isRequired,
@@ -26,23 +28,32 @@ class EndModal extends React.Component {
 
   render() {
     return (
-      <div className="small-3 small-centered columns">
-        <form id="score-form" ref="scoreForm" onSubmit={this.submitScore} className="callout">
-          <div className="row">
-            <div className="medium-12 columns">
-              <label>Enter Your Name
-                <input type="text" placeholder="Name" ref="name" />
-              </label>
-              <button type="submit" className="button expanded">Submit</button>
+      <div className="small-4 small-centered columns">
+        <div className="callout" id="gameOver-modal" >
+
+          <Hr text={'You Win!'} />
+
+          <form ref="scoreForm" onSubmit={this.submitScore}>
+            <div className="row">
+              <div className="medium-12 columns">
+                <label>Enter Your Name
+                  <input type="text" placeholder="Name" ref="name" />
+                </label>
+                <button type="submit" className="button expanded">Submit</button>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
 
-        {this.props.children}
+          <Hr text={'Or'} />
 
-        <button onClick={this.props.startGame} className="button large expanded">
-          Replay Game
-        </button>
+          {this.props.children}
+
+          <Hr text={'Or'} />
+
+          <button onClick={this.props.replayGame} className="button expanded">
+            Replay Game
+          </button>
+        </div>
       </div>
     );
   }

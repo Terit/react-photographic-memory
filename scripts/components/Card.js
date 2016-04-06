@@ -3,7 +3,7 @@ import { shouldFlip } from '../helpers/gameLogic';
 
 const propTypes = {
   image: PropTypes.string.isRequired,
-  gameOver: PropTypes.func.isRequired,
+  isGameOver: PropTypes.func.isRequired,
   number: PropTypes.number.isRequired,
 };
 

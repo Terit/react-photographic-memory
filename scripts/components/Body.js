@@ -5,7 +5,7 @@ import Card from './Card';
 
 const propTypes = {
   cards: PropTypes.array.isRequired,
-  gameOver: PropTypes.func.isRequired,
+  isGameOver: PropTypes.func.isRequired,
 };
 
 class Body extends React.Component {
@@ -18,7 +18,7 @@ class Body extends React.Component {
         image={card.image}
         number={card.id}
         match={card.match}
-        gameOver={this.props.gameOver}
+        isGameOver={this.props.isGameOver}
       />
     );
   }

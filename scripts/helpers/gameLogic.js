@@ -61,7 +61,7 @@ export const shouldFlip = (currentCard) => {
         .then(isMatch)
         .then(resetCards) // Regardless, reset the click counter and clickedCards array
         .catch(e => `There was an error: ${e}`)
-        .then(currentCard.props.gameOver);
+        .then(currentCard.props.isGameOver);
     }
   }
   return true;

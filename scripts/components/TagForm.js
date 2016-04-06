@@ -16,7 +16,7 @@ class TagForm extends React.Component {
     return (
       <form ref="tagSearch" onSubmit={this.search}>
         <ul className="menu">
-          <li><input type="search" placeholder="#Tag" ref="searchTag" /></li>
+          <li><input type="search" placeholder="#Tag" ref="searchTag" style={{height: "41px"}} /></li>
           <li><button type="submit" className="button">Play</button></li>
         </ul>
       </form>
