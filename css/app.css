@@ -29,6 +29,7 @@
   background: rgba(0, 0, 255, 0.3);
   position: absolute;
   border-radius: 5px;
+  max-width: 75rem;
 }
 
 .buttons {

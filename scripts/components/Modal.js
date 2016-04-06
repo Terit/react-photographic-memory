@@ -7,7 +7,7 @@ const propTypes = {
 
 export default function Modal({ gameOn, children }) {
   return (
-    <div className={`modal large-11 small-12 columns ${gameOn ? 'hide' : ''}`}>
+    <div className={`modal ${gameOn ? 'hide' : ''}`}>
       <div className="row">
           {children}
       </div>
