@@ -22,19 +22,14 @@ var connect = require('gulp-connect');
 */
 
 gulp.task('styles',function() {
-  // move over fonts
-
-  gulp.src('css/fonts/**.*')
-    .pipe(gulp.dest('build/css/fonts'))
-
   // Compiles CSS
   // Foundation CSS
-  gulp.src('css/foundation.min.css')
-    .pipe(gulp.dest('./build/css'))
+  gulp.src('assets/css/foundation.min.css')
+    .pipe(gulp.dest('./build/assets/css'))
     .pipe(reload({stream:true}))
 
-  gulp.src('css/app.css')
-    .pipe(gulp.dest('./build/css'))
+  gulp.src('assets/css/app.css')
+    .pipe(gulp.dest('./build/assets/css'))
     .pipe(reload({stream:true}))
 });
 
@@ -42,8 +37,8 @@ gulp.task('styles',function() {
   Images
 */
 gulp.task('images',function(){
-  gulp.src('css/images/**')
-    .pipe(gulp.dest('./build/css/images'))
+  gulp.src('assets/images/**')
+    .pipe(gulp.dest('./build/assets/images'))
 });
 
 /*
@@ -109,7 +104,7 @@ gulp.task('scripts', function() {
 
 // run 'scripts' task first, then watch for future changes
 gulp.task('default', ['images','styles','scripts','browser-sync'], function() {
-  gulp.watch('css/**/*', ['styles']); // gulp watch for stylus changes
+  gulp.watch('assets/css/**/*', ['styles']); // gulp watch for CSS changes
   return buildScript('main.js', true); // browserify watch for JS changes
 });
 
@@ -122,6 +117,6 @@ gulp.task('serveprod', function() {
   });
 });
 
-gulp.task('build', ['images','styles','scripts', 'serveprod'], function() {
+gulp.task('production', ['images','styles','scripts', 'serveprod'], function() {
   return buildScript('main.js', true);
 });

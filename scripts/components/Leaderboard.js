@@ -5,6 +5,7 @@ import Header from './Header';
 import Leader from './Leader';
 import Timer from './Timer';
 import TagForm from './TagForm';
+import Footer from './Footer';
 
 import { leaderboard } from '../helpers/photographicMemoryApi';
 
@@ -46,24 +47,27 @@ class Leaderboard extends React.Component {
   render() {
     const scores = Object.keys(this.state.leaderboard);
     return (
-      <div className="row">
+      <div>
         <Header tag={'Leaders'}>
           <span></span>
           <TagForm />
         </Header>
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Hashtag</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            {scores.map(this.renderScores)}
-          </tbody>
-        </table>
+        <div className="row">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Hashtag</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              {scores.map(this.renderScores)}
+            </tbody>
+          </table>
+        </div>
+        <Footer tag={this.props.params.tag || 'popular'} />
       </div>
     );
   }

@@ -1,14 +1,15 @@
 import React, { PropTypes } from 'react';
 import autobind from 'autobind-decorator';
 
-import Header from './Header';
-import Timer from './Timer';
 import Body from './Body';
 import Modal from './Modal';
 import StartModal from './StartModal';
 import EndModal from './EndModal';
 import ProgressBar from './ProgressBar';
+import Header from './Header';
+import Timer from './Timer';
 import TagForm from './TagForm';
+import Footer from './Footer';
 
 import { matchCount, cssStopGame, cssStartGame, shuffle, resetMatches } from '../helpers/gameLogic';
 import { percentTimeLeft, runTimer } from '../helpers/timeHelpers';
@@ -136,16 +137,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="row">
+      <div>
         <Header tag={this.props.params.tag || 'popular'} gameTime={this.state.gameTime}>
           <Timer gameTime={this.state.gameTime} />
           <TagForm />
         </Header>
         <ProgressBar width={this.state.width} />
-        <Modal gameOn={this.state.gameOn}>
-          {this.renderModal()}
-        </Modal>
-        <Body cards={shuffle(this.state.cards)} isGameOver={this.isGameOver} />
+        <div className="row">
+          <Modal gameOn={this.state.gameOn}>
+            {this.renderModal()}
+          </Modal>
+          <Body cards={shuffle(this.state.cards)} isGameOver={this.isGameOver} />
+        </div>
+        <Footer tag={this.props.params.tag || 'popular'} />
       </div>
     );
   }

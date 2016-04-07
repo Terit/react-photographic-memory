@@ -36,7 +36,8 @@ class Card extends React.Component {
       };
     }
     return {
-      background: 'url(./assets/images/Instagram_Icon_Large.png) 50% 50% / 180px 180px no-repeat',
+      background: `url(./build/assets/images/Instagram_Icon_Large.png)
+                    50% 50% / 180px 180px no-repeat`,
       className: '',
     };
   }

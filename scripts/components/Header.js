@@ -11,7 +11,7 @@ export default function Header({ children, tag }) {
     <div className="top-bar">
       <div className="top-bar-left">
         <ul className="menu">
-          <li><Link to="/">Photographic Memory</Link></li>
+          <li className="title"><Link to="/">Photographic Memory</Link></li>
           <li className="menu-text">#{tag}</li>
           {children[0]}
         </ul>
