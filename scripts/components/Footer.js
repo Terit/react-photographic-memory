@@ -6,7 +6,7 @@ export default function Footer({ tag }) {
     <footer className="footer">
       <div className="row">
         <div className="small-12 columns">
-          <p className="slogan">Having fun? Check this out.</p>
+          <p className="slogan">Having fun? Let me know.</p>
           <p className="links">
             <Link to="/">Home</Link>
             <Link to={`/${tag}/leaderboard`}>Leaderboard</Link>

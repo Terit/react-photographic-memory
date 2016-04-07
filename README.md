@@ -20,3 +20,5 @@ React version of Photographic Memory
 #### Extras
 
 - [ ] Adjustable timer
+- [ ] Saveable games
+  - [ ] User photo uploads
