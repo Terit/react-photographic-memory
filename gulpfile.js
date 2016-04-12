@@ -62,7 +62,7 @@ function handleErrors() {
   this.emit('end'); // Keep gulp from hanging on this task
 }
 
-function buildScript(file, watch, minify) {
+function buildScript(file, watch) {
   var props = {
     entries: ['./scripts/' + file],
     debug : true,
@@ -76,16 +76,6 @@ function buildScript(file, watch, minify) {
 
   function rebundle() {
     var stream = bundler.bundle();
-    if (minify) {
-      return stream
-        .on('error', handleErrors)
-        .pipe(source(file))
-        .pipe(buffer())
-        .pipe(uglify())
-        .pipe(rename('app.min.js'))
-        .pipe(gulp.dest('./build'))
-        .pipe(reload({stream:true}))
-    }
     return stream
       .on('error', handleErrors)
       .pipe(source(file))
@@ -104,7 +94,7 @@ function buildScript(file, watch, minify) {
 }
 
 gulp.task('scripts', function() {
-  return buildScript('main.js', false, false); // this will run once because we set watch to false
+  return buildScript('main.js', false); // this will run once because we set watch to false
 });
 
 // run 'scripts' task first, then watch for future changes
@@ -122,6 +112,30 @@ gulp.task('serveprod', function() {
   });
 });
 
+function buildProdScript(file, watch) {
+  var props = {
+    entries: ['./scripts/' + file],
+    debug : true,
+    cache: {},
+    packageCache: {},
+    transform:  [babelify.configure({ stage : 0 })]
+  };
+
+  // otherwise run browserify() once
+  var bundler = browserify(props);
+  function rebundle() {
+    var stream = bundler.bundle();
+    return stream
+      .on('error', handleErrors)
+      .pipe(source(file))
+      .pipe(buffer())
+      .pipe(uglify())
+      .pipe(gulp.dest('./build/'))
+  }
+
+  return rebundle();
+};
+
 gulp.task('production', ['images','styles','scripts','serveprod'], function() {
-  return buildScript('main.js', false, true);
+  return buildProdScript('main.js', false);
 });
