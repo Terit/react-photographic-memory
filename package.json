@@ -35,7 +35,7 @@
     "react-addons-css-transition-group": "0.14.0",
     "react-catalyst": "0.3.0",
     "react-dom": "0.14.0",
-    "react-mixin": "^3.0.3",
+    "react-mixin": "^5.0.0",
     "react-router": "^1.0.0-rc3",
     "superagent": "^1.7.2",
     "vinyl-buffer": "1.0.0",
